@@ -1,9 +1,10 @@
+month
 books
   title
   author (name)
   publisher 
-  yearpublished (year)
+  year (year published)
   reading
    startread (date)
    finishread (date)
-     rating (1-5 stars)
+  rating (1-5 stars)
