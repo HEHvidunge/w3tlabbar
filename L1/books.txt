@@ -1,0 +1,9 @@
+books
+  title
+  author (name)
+  publisher 
+  yearpublished (year)
+  reading
+   startread (date)
+   finishread (date)
+     rating (1-5 stars)
