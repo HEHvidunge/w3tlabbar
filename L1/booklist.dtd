@@ -12,15 +12,16 @@ reading
 rating (1-5 stars)`
 cover
 -->
-<!ELEMENT booklist (book, reading, rating, cover)>
- <!ELEMENT book (title, author, publisher, year)>
+<!ELEMENT booklist (month, book)>
+  <!ELEMENT month (#PCDATA)>
+  <!ELEMENT book (title, author, publisher, year, reading, rating, cover)>
    <!ELEMENT title (#PCDATA)>
    <!ELEMENT author (#PCDATA)>
    <!ELEMENT publisher (#PCDATA)>
    <!ELEMENT year (#PCDATA)>
- <!ELEMENT reading (start,finish)>
+   <!ELEMENT reading (start,finish)>
    <!ELEMENT start (#PCDATA)>
    <!ELEMENT finish (#PCDATA)>
- <!ELEMENT rating (#PCDATA)>
- <!ELEMENT cover (EMPTY)>
-  <!ATTLIST cover url CDATA #REQUIRED>
+   <!ELEMENT rating (#PCDATA)>
+   <!ELEMENT cover (EMPTY)>
+     <!ATTLIST cover url CDATA #REQUIRED>

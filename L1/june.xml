@@ -1,14 +1,20 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE courselist SYSTEM "booklist.dtd">
-<book>
-    <title></title>
-    <author></author>
-    <publisher></publisher>
-    <year></year>
-</book>
-<reading>
-    <start></start>
-    <finish></finish>
-</reading>
-<rating> </rating>
-<cover url=""></cover>
+
+<booklist>
+
+    <month>June</month>
+
+    <book>
+        <title></title>
+        <author></author>
+        <publisher></publisher>
+        <year></year>
+        <reading>
+            <start></start>
+            <finish></finish>
+        </reading>
+        <rating> </rating>
+        <cover url="/img/"/>
+    </book>
+</booklist>
