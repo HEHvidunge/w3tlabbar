@@ -4,40 +4,41 @@
     <month>July</month>
     <book>
         <author>Peter Frankopan</author>
-    <title>The Earth Transformed: An Untold History</title>
-    <year>
-        2023</year>
-    <publisher>Bloomsbury</publisher>
-    <reading>
+        <title>The Earth Transformed: An Untold History</title>
+        <year> 2023</year>
+        <publisher>Bloomsbury</publisher>
+        <reading>
             <start> </start>
             <finish> </finish>
-        </reading>			
-    <rating> </rating> "<coverurl=""/img/""/>"
+        </reading>
+        <rating> </rating>
+        <cover url="/img/earthtransformed.jpg"/>
     </book>
 
     <book>
         <author>Edith Hall</author>
-    <title>Introducing the Ancient Greeks: From Bronze Age Seafarers
-        to Navigators of the Western Mind</title>
-    <year>2015</year>
-    <publisher>W. W. Norton & Company</publisher>
-    <reading>
+        <title>Introducing the Ancient Greeks: From Bronze Age Seafarers to Navigators of the
+            Western Mind</title>
+        <year>2015</year>
+        <publisher>W. W. Norton and Company</publisher>
+        <reading>
             <start> </start>
             <finish> </finish>
-        </reading>			
-    <rating> </rating> "<coverurl=""/img/""/>"
+        </reading>
+        <rating> </rating>
+        <cover url="/img/ancientgreeks.jpg"/>
     </book>
 
     <book>
         <author>Rana Mitter</author>
-    <title>China's War With Japan, 1937-1945</title>
-    <year>2014</year>
-    <publisher>
-        PENGUIN</publisher>
-    <reading>
+        <title>China's War With Japan, 1937-1945</title>
+        <year>2014</year>
+        <publisher> PENGUIN</publisher>
+        <reading>
             <start> </start>
             <finish> </finish>
-        </reading>			
-    <rating> </rating> "<coverurl=""/img/""/>"
+        </reading>
+        <rating> </rating>
+        <cover url="/img/chinaswar.jpg"/>
     </book>
 </booklist>
