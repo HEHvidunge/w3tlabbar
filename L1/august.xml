@@ -13,7 +13,8 @@
             <start> </start>
             <finish> </finish>
         </reading>			
-    <rating> </rating> "<coverurl=""/img/""/>"
+    <rating> </rating> 
+    <cover>url="/img/riverkings.jpg"/>
     </book>
 
     <book>
@@ -26,7 +27,8 @@
             <start> </start>
             <finish> </finish>
         </reading>			
-    <rating> </rating> "<coverurl=""/img/""/>"
+    <rating> </rating> 
+    <coverurl="/img/arabconquest.jpg"/>
     </book>
 
     <book>
@@ -39,7 +41,8 @@
             <start> </start>
             <finish> </finish>
         </reading>			
-    <rating> </rating> "<coverurl=""/img/""/>"
+    <rating> </rating> 
+    <coverurl="/img/splendidexchange.jpg"/>
     </book>
 
     <book>
@@ -52,7 +55,8 @@
             <start> </start>
             <finish> </finish>
         </reading>			
-    <rating> </rating> "<coverurl=""/img/""/>"
+    <rating> </rating> 
+    <coverurl="/img/europe.jpg"/>
     </book>
 
     <book>
@@ -65,6 +69,7 @@
             <start> </start>
             <finish> </finish>
         </reading>			
-    <rating> </rating> "<coverurl=""/img/""/>"
+    <rating> </rating> 
+    <coverurl="/img/whodares.jpg"/>
     </book>
 </booklist>
