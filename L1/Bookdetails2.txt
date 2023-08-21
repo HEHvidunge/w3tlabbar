@@ -1,0 +1,142 @@
+<book>			
+<author>Ed Yong	</author>
+<title>	An Immense World: How Animal Senses Reveal the Hidden Realms Around Us</title>
+<year>2022</year>
+<publisher>Bodley Head</publisher>
+<reading>			
+<start>	</start>	
+<finish>		</finish>	
+</reading>			
+<rating>		</rating>	
+"<coverurl=""/img/""/>"			
+</book>			
+			
+<book>			
+<author	>Tom Holland	</author>
+<title>Pax: War and Peace in Rome's Golden Age</title>
+<year>2023</year>
+<publisher>Abacus</publisher>
+<reading>			
+<start>		</start>	
+<finish>		</finish>	
+</reading>			
+<rating>		</rating>	
+"<coverurl=""/img/""/>"			
+</book>			
+			
+<book>			
+<author>James D. Tabor</author>
+<title>Paul and Jesus: How the Apostle Transformed Christianity</title>
+<year>2013</year>
+<publisher>Simon & Schuster	</publisher>
+<reading>			
+<start>		</start>	
+<finish>		</finish>	
+</reading>			
+<rating>		</rating>	
+"<coverurl=""/img/""/>"			
+</book>			
+			
+<book>			
+<author>Peter Frankopan</author>
+<title>The Earth Transformed: An Untold History</title>
+<year>2023</year>
+<publisher>Bloomsbury</publisher>
+<reading>			
+<start>		</start>	
+<finish>		</finish>	
+</reading>			
+<rating>		</rating>	
+"<coverurl=""/img/""/>"			
+</book>			
+			
+<book>			
+<author>Edith Hall</author>
+<title>Introducing the Ancient Greeks: From Bronze Age Seafarers to Navigators of the Western Mind</title>
+<year>2015</year>
+<publisher>W. W. Norton & Company</publisher>
+<reading>			
+<start>		</start>	
+<finish>		</finish>	
+</reading>			
+<rating>		</rating>	
+"<coverurl=""/img/""/>"			
+</book>			
+			
+<book>			
+<author>Rana Mitter</author>
+<title>China's War With Japan, 1937-1945</title>
+<year>2014</year>
+<publisher>PENGUIN</publisher>
+<reading>			
+<start>		</start>	
+<finish>		</finish>	
+</reading>			
+<rating>		</rating>	
+"<coverurl=""/img/""/>"			
+</book>			
+			
+<book>			
+<author>Cat Jarman</author>
+<title>River Kings: A New History of Vikings from Scandinavia to the Silk Roads</title>
+<year>2022</year>
+<publisher>HarperCollins</publisher>
+<reading>			
+<start>		</start>	
+<finish>		</finish>	
+</reading>			
+<rating>		</rating>	
+"<coverurl=""/img/""/>"			
+</book>			
+			
+<book>			
+<author>Hugh Kennedy</author>
+<title>The Great Arab Conquests How the Spread of Islam Changed the World We Live In</title>
+<year>2008</year>
+<publisher>Phoenix</publisher>
+<reading>			
+<start>		</start>	
+<finish>		</finish>	
+</reading>			
+<rating>		</rating>	
+"<coverurl=""/img/""/>"			
+</book>			
+			
+<book>			
+<author>William J. Bernstein</author>
+<title>A Splendid Exchange: How Trade Shaped the World</title>
+<year>2008</year>
+<publisher>Atlantic Monthly Press</publisher>
+<reading>			
+<start>		</start>	
+<finish>		</finish>	
+</reading>			
+<rating>		</rating>	
+"<coverurl=""/img/""/>"			
+</book>			
+			
+<book>			
+<author>Brendan Simms</author>
+<title>Europe: The Struggle for Supremacy from 1453 to the Present</title>
+<year>2013</year>
+<publisher>Basic Books</publisher>
+<reading>			
+<start>		</start>	
+<finish>		</finish>	
+</reading>			
+<rating>		</rating>	
+"<coverurl=""/img/""/>"			
+</book>			
+			
+<book>			
+<author>Dominic Sandbrook</author>
+<title>Who Dares Wins</title>
+<year>2020</year>
+<publisher>Penguin</publisher>
+<reading>			
+<start>		</start>	
+<finish>		</finish>	
+</reading>			
+<rating>		</rating>	
+"<coverurl=""/img/""/>"			
+</book>			

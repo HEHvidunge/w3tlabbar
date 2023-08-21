@@ -6,15 +6,44 @@
     <month>June</month>
 
     <book>
-        <title></title>
-        <author></author>
-        <publisher></publisher>
-        <year></year>
+        <author>Ed Yong </author>
+        <title> An Immense World: How Animal Senses Reveal the Hidden
+        Realms Around Us</title>
+        <year>2022</year>
+        <publisher>Bodley Head</publisher>
         <reading>
-            <start></start>
-            <finish></finish>
-        </reading>
-        <rating> </rating>
-        <cover url="/img/"/>
+            <start> </start>
+            <finish> </finish>
+        </reading>			
+        <rating> </rating> 
+        <coverurl="/img/immenseworld.jpg">
+    </book>
+
+    <book>
+        <author>Tom Holland </author>
+        <title>Pax: War and Peace in Rome's Golden Age</title>
+        <year>
+        2023</year>
+        <publisher>Abacus</publisher>
+        <reading>
+            <start> </start>
+            <finish> </finish>
+        </reading>			
+        <rating> </rating> 
+        <coverurl="/img/pax.jpg">
+    </book>
+
+    <book>
+        <author>James D. Tabor</author>
+        <title>Paul and Jesus: How the Apostle Transformed
+        Christianity</title>
+        <year>2013</year>
+        <publisher>Simon and Schuster </publisher>
+        <reading>
+            <start> </start>
+            <finish> </finish>
+        </reading>			
+        <rating> </rating> 
+        <coverurl="/img/paulandjesus.jpg">
     </book>
 </booklist>
