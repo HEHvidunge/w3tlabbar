@@ -12,7 +12,7 @@
             <finish> </finish>
         </reading>
         <rating> </rating>
-        <cover url="/img/earthtransformed.jpg"/>
+        <cover url="img/earthtransformed.jpg"/>
     </book>
 
     <book>
@@ -26,7 +26,7 @@
             <finish> </finish>
         </reading>
         <rating> </rating>
-        <cover url="/img/ancientgreeks.jpg"/>
+        <cover url="img/ancientgreeks.jpg"/>
     </book>
 
     <book>
@@ -39,6 +39,6 @@
             <finish> </finish>
         </reading>
         <rating> </rating>
-        <cover url="/img/chinaswar.jpg"/>
+        <cover url="img/chinaswar.jpg"/>
     </book>
 </booklist>

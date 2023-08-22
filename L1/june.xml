@@ -16,7 +16,7 @@
             <finish> </finish>
         </reading>			
         <rating> </rating> 
-        <coverurl="/img/immenseworld.jpg">
+        <cover url="img/immenseworld.jpg"/>
     </book>
 
     <book>
@@ -30,7 +30,7 @@
             <finish> </finish>
         </reading>			
         <rating> </rating> 
-        <coverurl="/img/pax.jpg">
+        <cover url="img/pax.jpg"/>
     </book>
 
     <book>
@@ -44,6 +44,6 @@
             <finish> </finish>
         </reading>			
         <rating> </rating> 
-        <coverurl="/img/paulandjesus.jpg">
+        <cover url="img/paulandjesus.jpg"/>
     </book>
 </booklist>
