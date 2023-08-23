@@ -10,7 +10,7 @@ reading
    start (date)
    finish (date)
 rating (1-5 stars)`
-cover
+cover|
 -->
 <!ELEMENT booklist (month+, book+)>
 <!ELEMENT month (#PCDATA)>
@@ -23,5 +23,5 @@ cover
      <!ELEMENT start (#PCDATA)>
      <!ELEMENT finish (#PCDATA)>
   <!ELEMENT rating (#PCDATA)>
-  <!ELEMENT cover EMPTY>
+    <!ELEMENT cover EMPTY>
     <!ATTLIST cover url CDATA #IMPLIED>

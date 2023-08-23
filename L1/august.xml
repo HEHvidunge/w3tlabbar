@@ -10,10 +10,10 @@
     <year>2022</year>
     <publisher>HarperCollins</publisher>
     <reading>
-            <start> </start>
-            <finish> </finish>
+            <start>20230801</start>
+            <finish>20230808</finish>
         </reading>			
-    <rating> </rating> 
+    <rating>3</rating> 
     <cover url="img/riverkings.jpg"/>
     </book>
 
@@ -24,10 +24,10 @@
     <year>2008</year>
     <publisher>Phoenix</publisher>
     <reading>
-            <start> </start>
-            <finish> </finish>
+            <start>20230808</start>
+            <finish>20230812</finish>
         </reading>			
-    <rating> </rating> 
+    <rating>4</rating> 
     <cover url="img/arabconquest.jpg"/>
     </book>
 
@@ -38,10 +38,10 @@
         2008</year>
     <publisher>Atlantic Monthly Press</publisher>
     <reading>
-            <start> </start>
-            <finish> </finish>
+            <start>20230812</start>
+            <finish>20230816 </finish>
         </reading>			
-    <rating> </rating> 
+    <rating>3</rating> 
     <cover url="img/splendidexchange.jpg"/>
     </book>
 
@@ -52,10 +52,10 @@
     <year>2013</year>
     <publisher>Basic Books</publisher>
     <reading>
-            <start> </start>
-            <finish> </finish>
+            <start>20230816</start>
+            <finish>20230820</finish>
         </reading>			
-    <rating> </rating> 
+    <rating>4</rating> 
     <cover url="img/europe.jpg"/>
     </book>
 
@@ -66,10 +66,10 @@
     <publisher>
         Penguin</publisher>
     <reading>
-            <start> </start>
-            <finish> </finish>
+            <start>20230820</start>
+            <finish>20230823</finish>
         </reading>			
-    <rating> </rating> 
+    <rating>5</rating> 
     <cover url="img/whodares.jpg"/>
     </book>
 </booklist>
