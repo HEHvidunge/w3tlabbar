@@ -8,10 +8,10 @@
         <year> 2023</year>
         <publisher>Bloomsbury</publisher>
         <reading>
-            <start> </start>
-            <finish> </finish>
+            <start>20230701</start>
+            <finish>20230720</finish>
         </reading>
-        <rating> </rating>
+        <rating>3</rating>
         <cover url="img/earthtransformed.jpg"/>
     </book>
 
@@ -22,10 +22,10 @@
         <year>2015</year>
         <publisher>W. W. Norton and Company</publisher>
         <reading>
-            <start> </start>
-            <finish> </finish>
+            <start>20230720</start>
+            <finish>20230722</finish>
         </reading>
-        <rating> </rating>
+        <rating>4</rating>
         <cover url="img/ancientgreeks.jpg"/>
     </book>
 
@@ -35,10 +35,10 @@
         <year>2014</year>
         <publisher> PENGUIN</publisher>
         <reading>
-            <start> </start>
-            <finish> </finish>
+            <start>20230722</start>
+            <finish>20230730 </finish>
         </reading>
-        <rating> </rating>
+        <rating>4</rating>
         <cover url="img/chinaswar.jpg"/>
     </book>
 </booklist>

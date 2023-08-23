@@ -12,10 +12,10 @@
         <year>2022</year>
         <publisher>Bodley Head</publisher>
         <reading>
-            <start> </start>
-            <finish> </finish>
+            <start>20230601</start>
+            <finish>20230614</finish>
         </reading>			
-        <rating> </rating> 
+        <rating>3</rating> 
         <cover url="img/immenseworld.jpg"/>
     </book>
 
@@ -26,10 +26,10 @@
         2023</year>
         <publisher>Abacus</publisher>
         <reading>
-            <start> </start>
-            <finish> </finish>
+            <start>20230615</start>
+            <finish>20230630</finish>
         </reading>			
-        <rating> </rating> 
+        <rating>4</rating> 
         <cover url="img/pax.jpg"/>
     </book>
 
