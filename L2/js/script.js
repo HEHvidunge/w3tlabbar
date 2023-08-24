@@ -16,11 +16,9 @@ window.addEventListener("load", init); // init aktiveras då sidan är inladdad
 // Avläs menyn för val av ämne
 function selectSubject() {
 	let subject = this.value; //läs in valt ämne
-
+	console.log("Subject", subject);
 	requestSubjectData(subject);
 } // End selectSubject
-
-
 
 
 
@@ -35,31 +33,36 @@ function selectCourses() {
 } // End selectCourses
 
 
-//requestdata 
+//requestsubjectdata 
 function requestSubjectData(name) { // filname är namnet (utan ändelse) på den fil som ska hämtas
-	let filename = "subject";
+	let filename = "subjects";
 	let request = new XMLHttpRequest(); // Object för Ajax-anropet
-	request.open("GET", "data/" + filename + ".xml", true);
+	request.open("GET", "xml/" + filename + ".xml", true);
 	request.send(null); // Skicka begäran till servern
 	request.onreadystatechange = function () { // Funktion för att avläsa status i kommunikationen
 		if (request.readyState == 4) // readyState 4 --> kommunikationen är klar
 
-			if (request.status == 200) getSubjectData(request.responseXML,name); // status 200 
+			if (request.status == 200) getSubjectData(request.responseXML, name); // status 200 
 			else subjectInfoElem.innerHTML = "Den begärda resursen finns inte.";
-
+		console.log("Request", request.responseXML)
+		console.log("Name", name)
 
 	}
+
 }
 
 
 
-function getSubjectData(XMLcode,compareName) {
+function getSubjectData(XMLcode, compareName) {
 	let subjectElems = XMLcode.getElementsByTagName("subject"); // Lista (array) 
 	let HTMLcode = ""; // Textsträng med ny HTML-kod som skapas
 	for (let i = 0; i < subjectElems.length; i++) {
 
 		let nameElem = subjectElems[i].getElementsByTagName("name")[0];
 		let infoElem = subjectElems[i].getElementsByTagName("info")[0];
+
+		console.log("function getSubjectData",nameElem,infoElem);
+		
 		if (nameElem == compareName) {
 			HTMLcode += "<h3>" + "Ämne" + "</h3>";
 			HTMLcode += "<p><b>Namn:</b> " + nameElem.firstChild.data + "</p>";
@@ -67,9 +70,10 @@ function getSubjectData(XMLcode,compareName) {
 			HTMLcode += "<hr>";
 
 			subjectInfoElem.innerHTML = HTMLcode;
+			console.log("HTMLcode", HTMLcode)
 		}
-else subjectInfoElem.innerHTML = ;
-		
+		else subjectInfoElem.innerHTML = "Den begärda resursen finns inte.";
+
 	}
 }
 // End getData
