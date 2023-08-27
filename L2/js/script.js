@@ -16,7 +16,7 @@ window.addEventListener("load", init); // init aktiveras då sidan är inladdad
 // Avläs menyn för val av ämne
 function selectSubject() {
 	let subject = this.value; //läs in valt ämne
-	console.log("Subject", subject);
+	//console.log("Subject", subject);
 	requestSubjectData(subject);
 } // End selectSubject
 
@@ -44,7 +44,7 @@ function requestSubjectData(name) { // filname är namnet (utan ändelse) på de
 
 			if (request.status == 200) getSubjectData(request.responseXML, name); // status 200 
 			else subjectInfoElem.innerHTML = "Den begärda resursen finns inte.";
-		console.log("Request", request.responseXML)
+		//console.log("Request", request.responseXML)
 		console.log("Name", name)
 
 	}
@@ -58,19 +58,26 @@ function getSubjectData(XMLcode, compareName) {
 	let HTMLcode = ""; // Textsträng med ny HTML-kod som skapas
 	for (let i = 0; i < subjectElems.length; i++) {
 
+		console.log(subjectElems.length);
+		
+
 		let nameElem = subjectElems[i].getElementsByTagName("name")[0];
 		let infoElem = subjectElems[i].getElementsByTagName("info")[0];
 
-		console.log("function getSubjectData",nameElem,infoElem);
-		
+		//console.log("function getSubjectData",nameElem,infoElem);
+		console.log(compareName,nameElem.firstChild.data);
+		console.log(infoElem.firstChild.data);
 		if (nameElem == compareName) {
 			HTMLcode += "<h3>" + "Ämne" + "</h3>";
 			HTMLcode += "<p><b>Namn:</b> " + nameElem.firstChild.data + "</p>";
 			HTMLcode += "<p><b>Info:</b> " + infoElem.firstChild.data + "</p>";
 			HTMLcode += "<hr>";
-
 			subjectInfoElem.innerHTML = HTMLcode;
-			console.log("HTMLcode", HTMLcode)
+
+			//console.log("HTMLcode", HTMLcode);
+			//console.log(nameElem.firstChild.data,infoElem.firstChild.data);
+			console.log(nameElem, infoElem);
+			break;
 		}
 		else subjectInfoElem.innerHTML = "Den begärda resursen finns inte.";
 
