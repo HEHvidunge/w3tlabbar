@@ -28,7 +28,7 @@ function selectSubject() {
 // Avläs menyn för val av ämne för kurser
 function selectCourses() {
 	let course = this.value; //läs in vald kurs
-	let file="";
+	let file = "";
 
 	switch (course) {
 		case "Mediateknik": file = "courselist1";
@@ -41,7 +41,7 @@ function selectCourses() {
 			break;
 	}
 
-	
+
 
 	requestCourseData(file);
 
@@ -70,15 +70,15 @@ function requestSubjectData(name) { // filname är namnet på taggen för de dat
 function requestCourseData(filename) { // filname är namnet på taggen för de data som ska hämtas
 
 	let request = new XMLHttpRequest(); // Object för Ajax-anropet
-	request.open("GET", "xml/" + filename+ ".xml", true);
+	request.open("GET", "xml/" + filename + ".xml", true);
 	request.send(null); // Skicka begäran till servern
 	request.onreadystatechange = function () { // Funktion för att avläsa status i kommunikationen
 		if (request.readyState == 4) // readyState 4 --> kommunikationen är klar
 
-			if (request.status == 200) getSubjectData(request.responseXML); // status 200 
+			if (request.status == 200) getCourseData(request.responseXML); // status 200 
 			else courseListElem.innerHTML = "Den begärda resursen finns inte.";
 		//console.log("Request", request.responseXML)
-		//console.log("Name", name)
+
 
 	}
 
@@ -118,38 +118,44 @@ function getSubjectData(XMLcode, compareName) {//compareName är lokal variabel 
 
 //getCourseData
 function getCourseData(XMLcode) {
-	let subjectElems = XMLcode.getElementsByTagName("subject"); // Array skapas av data under taggen "subject"
+	let courseElems = XMLcode.getElementsByTagName("course"); // Array skapas av data under taggen "subject"
 	let HTMLcode = ""; // Textsträng med ny HTML-kod som skapas
-	for (let i = 0; i < subjectElems.length; i++) {
-		//console.log(subjectElems.length);
-		let codeElem = subjectElems[i].getElementsByTagName("code")[0];
-		let titleElem = subjectElems[i].getElementsByTagName("title")[0];
-		let creditsElem = subjectElems[i].getElementsByTagName("credits")[0];
-		let descriptionElem = subjectElems[i].getElementsByTagName("description")[0];
-		let nameElem = subjectElems[i].getElementsByTagName("name")[0];
-		let emailElem = subjectElems[i].getElementsByTagName("email")[0];
-		let moreinfoElem = subjectElems[i].getElementsByTagName("moreinfo")[0];
+	let subjectElem = XMLcode.getElementsByTagName("subject")[0];
 
-		//console.log("function getSubjectData",nameElem,infoElem);
-		//console.log(compareName,nameElem.firstChild.data);
-		//console.log(infoElem.firstChild.data);
+	console.log(subjectElem.firstChild.data);
+
+	for (let i = 0; i < courseElems.length; i++) {
+		console.log(courseElems.length);
+
+
+		let codeElem = courseElems[i].getElementsByTagName("code")[0];
+		let titleElem = courseElems[i].getElementsByTagName("title")[0];
+		let creditsElem = courseElems[i].getElementsByTagName("credits")[0];
+		let descriptionElem = courseElems[i].getElementsByTagName("description")[0];
+		let nameElem = courseElems[i].getElementsByTagName("name")[0];
+		let emailElem = courseElems[i].getElementsByTagName("contact")[0].getElementsByTagName("email")[0];
+		let moreinfoElem = courseElems[i].getElementsByTagName("moreinfo")[0];
+
+		console.log("function getCourseData", codeElem.firstChild.data, titleElem.firstChild.data);
+		console.log(creditsElem.firstChild.data, nameElem.firstChild.data)
+		console.log("moreinfo", moreinfoElem)
+
+
 		//
-		HTMLcode += "<h3>" + "Ämne" + "</h3>";
+		HTMLcode += "<h3>" + subjectElem.firstChild.data + "</h3>";
 		HTMLcode += "<p><b>Kurskod:</b> " + codeElem.firstChild.data + "</p>";
 		HTMLcode += "<p><b>Kurs:</b> " + titleElem.firstChild.data + "</p>";
 		HTMLcode += "<p><b>HP:</b> " + creditsElem.firstChild.data + "</p>";
 		HTMLcode += "<p><b>Beskrivning:</b> " + descriptionElem.firstChild.data + "</p>";
 		HTMLcode += "<p><b>Namn:</b> " + nameElem.firstChild.data + "</p>";
 		HTMLcode += "<p><b>E-post:</b> " + emailElem.firstChild.data + "</p>";
-		HTMLcode += "<p><b>Mer information:</b> " + moreinfoElem.firstChild.data + "</p>";
+		HTMLcode += "<p><b> <a hrf="+ moreinfoElem +"> Mer information: </a> </b> url</p>";
 
 
 		HTMLcode += "<hr>";
 		courseList.innerHTML = HTMLcode;
 
-		//console.log("HTMLcode", HTMLcode);
-		//console.log(nameElem.firstChild.data,infoElem.firstChild.data);
-		//console.log(nameElem, infoElem);
+
 
 
 	}
