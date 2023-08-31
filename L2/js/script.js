@@ -118,7 +118,7 @@ function getSubjectData(XMLcode, compareName) {//compareName är lokal variabel 
 
 //getCourseData
 function getCourseData(XMLcode) {
-	let courseElems = XMLcode.getElementsByTagName("course"); // Array skapas av data under taggen "subject"
+	let courseElems = XMLcode.getElementsByTagName("course"); //
 	let HTMLcode = ""; // Textsträng med ny HTML-kod som skapas
 	let subjectElem = XMLcode.getElementsByTagName("subject")[0];
 
@@ -133,12 +133,14 @@ function getCourseData(XMLcode) {
 		let creditsElem = courseElems[i].getElementsByTagName("credits")[0];
 		let descriptionElem = courseElems[i].getElementsByTagName("description")[0];
 		let nameElem = courseElems[i].getElementsByTagName("name")[0];
-		let emailElem = courseElems[i].getElementsByTagName("contact")[0].getElementsByTagName("email")[0];
+		let emailElem = courseElems[i].getElementsByTagName("email")[0];
 		let moreinfoElem = courseElems[i].getElementsByTagName("moreinfo")[0];
 
 		console.log("function getCourseData", codeElem.firstChild.data, titleElem.firstChild.data);
-		console.log(creditsElem.firstChild.data, nameElem.firstChild.data)
-		console.log("moreinfo", moreinfoElem)
+		console.log(creditsElem.firstChild.data);
+		//console.log(typeof(nameElem.firstChild.data));
+		//console.log(emailElem.firstChild.data);
+		console.log("moreinfo", moreinfoElem);
 
 
 		//
@@ -147,11 +149,10 @@ function getCourseData(XMLcode) {
 		HTMLcode += "<p><b>Kurs:</b> " + titleElem.firstChild.data + "</p>";
 		HTMLcode += "<p><b>HP:</b> " + creditsElem.firstChild.data + "</p>";
 		HTMLcode += "<p><b>Beskrivning:</b> " + descriptionElem.firstChild.data + "</p>";
-		HTMLcode += "<p><b>Namn:</b> " + nameElem.firstChild.data + "</p>";
-		HTMLcode += "<p><b>E-post:</b> " + emailElem.firstChild.data + "</p>";
-		HTMLcode += "<p><b> <a hrf="+ moreinfoElem +"> Mer information: </a> </b> url</p>";
-
-
+		if (nameElem.firstChild.data == null) { HTMLcode += "<p><b>Namn:</b> " + "Uppgift saknas" + "</p>" }
+		else (HTMLcode += "<p><b>Namn:</b> " + nameElem.firstChild.data + "</p>");
+		if (emailElem.firstChild.data != null) { HTMLcode += "<p><b>E-post:</b> " + emailElem.firstChild.data + "</p>"; }
+		HTMLcode += "<p><b> <a hrf=" + moreinfoElem + "> Mer information: </a> </b> url</p>";
 		HTMLcode += "<hr>";
 		courseList.innerHTML = HTMLcode;
 
