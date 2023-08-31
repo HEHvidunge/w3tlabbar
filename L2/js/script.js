@@ -143,21 +143,20 @@ function getCourseData(XMLcode) {
 		console.log("moreinfo", moreinfoElem);
 
 
-		//
+		// Utskrift av inlästa värden
 		HTMLcode += "<h3>" + subjectElem.firstChild.data + "</h3>";
 		HTMLcode += "<p><b>Kurskod:</b> " + codeElem.firstChild.data + "</p>";
 		HTMLcode += "<p><b>Kurs:</b> " + titleElem.firstChild.data + "</p>";
 		HTMLcode += "<p><b>HP:</b> " + creditsElem.firstChild.data + "</p>";
 		HTMLcode += "<p><b>Beskrivning:</b> " + descriptionElem.firstChild.data + "</p>";
+		//Funktion för att hantera "missing data"
 		if (nameElem.firstChild.data == null) { HTMLcode += "<p><b>Namn:</b> " + "Uppgift saknas" + "</p>" }
 		else (HTMLcode += "<p><b>Namn:</b> " + nameElem.firstChild.data + "</p>");
 		if (emailElem.firstChild.data != null) { HTMLcode += "<p><b>E-post:</b> " + emailElem.firstChild.data + "</p>"; }
+		//
 		HTMLcode += "<p><b> <a hrf=" + moreinfoElem + "> Mer information: </a> </b> url</p>";
 		HTMLcode += "<hr>";
 		courseList.innerHTML = HTMLcode;
-
-
-
 
 	}
 }
