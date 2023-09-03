@@ -17,7 +17,7 @@ window.addEventListener("load", init); // init aktiveras då sidan är inladdad
 // Avläs menyn för val av ämne
 function selectSubject() {
 	let subject = this.value; //läs in valt ämne
-	//console.log("Subject", subject);
+
 	requestSubjectData(subject);
 } // End selectSubject
 
@@ -27,10 +27,10 @@ function selectSubject() {
 
 // Avläs menyn för val av ämne för kurser
 function selectCourses() {
-	let course = this.value; //läs in vald kurs
+	let subjectName = this.value; //läs in valt ämne
 	let file = "";
-
-	switch (course) {
+	//Det valda ämnet översätts till motsvarande namn på datafil
+	switch (subjectName) {
 		case "Mediateknik": file = "courselist1";
 			break;
 		case "Musikvetenskap": file = "courselist2";
@@ -40,10 +40,7 @@ function selectCourses() {
 		default: file = "courselist1";
 			break;
 	}
-
-
-
-	requestCourseData(file);
+	requestCourseData(file, subjectName);//Filnamn och vält ämne förs vidare till nästa funktion
 
 } // End selectCourses
 
@@ -59,27 +56,23 @@ function requestSubjectData(name) { // filname är namnet på taggen för de dat
 
 			if (request.status == 200) getSubjectData(request.responseXML, name); // status 200 
 			else subjectInfoElem.innerHTML = "Den begärda resursen finns inte.";
-		//console.log("Request", request.responseXML)
-		//console.log("Name", name)
+
 
 	}
 
 }
 
 //requestCourseData
-function requestCourseData(filename) { // filname är namnet på taggen för de data som ska hämtas
+function requestCourseData(filename, subject) { // filname är namnet på taggen för de data som ska hämtas subject är valt ämne
 
 	let request = new XMLHttpRequest(); // Object för Ajax-anropet
 	request.open("GET", "xml/" + filename + ".xml", true);
 	request.send(null); // Skicka begäran till servern
 	request.onreadystatechange = function () { // Funktion för att avläsa status i kommunikationen
 		if (request.readyState == 4) // readyState 4 --> kommunikationen är klar
-
-			if (request.status == 200) getCourseData(request.responseXML); // status 200 
+			//Nästa funktion anropas. Idata och valt ämnesområde skickas vidare
+			if (request.status == 200) getCourseData(request.responseXML, subject); // status 200 
 			else courseListElem.innerHTML = "Den begärda resursen finns inte.";
-		//console.log("Request", request.responseXML)
-
-
 	}
 
 }
@@ -89,12 +82,8 @@ function getSubjectData(XMLcode, compareName) {//compareName är lokal variabel 
 	let subjectElems = XMLcode.getElementsByTagName("subject"); // Array skapas av data under taggen "subject"
 	let HTMLcode = ""; // Textsträng med ny HTML-kod som skapas
 	for (let i = 0; i < subjectElems.length; i++) {
-		//console.log(subjectElems.length);
 		let nameElem = subjectElems[i].getElementsByTagName("name")[0];//Array skapas för data under nametaggen
 		let infoElem = subjectElems[i].getElementsByTagName("info")[0];//Artray skapas för data under infotaggen
-		//console.log("function getSubjectData",nameElem,infoElem);
-		//console.log(compareName,nameElem.firstChild.data);
-		//console.log(infoElem.firstChild.data);
 		//
 		//Om aktuellt ämnesnamn i loopen stämmer med önskat ämne skrivs resultatet ut
 		//
@@ -102,12 +91,9 @@ function getSubjectData(XMLcode, compareName) {//compareName är lokal variabel 
 			HTMLcode += "<h3>" + "Ämne" + "</h3>";
 			HTMLcode += "<p><b>Namn:</b> " + nameElem.firstChild.data + "</p>";
 			HTMLcode += "<p><b>Info:</b> " + infoElem.firstChild.data + "</p>";
-			HTMLcode += "<hr>";
+			
 			subjectInfoElem.innerHTML = HTMLcode;
 
-			//console.log("HTMLcode", HTMLcode);
-			//console.log(nameElem.firstChild.data,infoElem.firstChild.data);
-			//console.log(nameElem, infoElem);
 			break; //Loopen bryts när efterfrågat ämne hittats
 		}
 		else subjectInfoElem.innerHTML = "Den begärda resursen finns inte.";//Om loopen gåtts igenom utan att ämnet hittats skrivs meddelande ut
@@ -117,47 +103,33 @@ function getSubjectData(XMLcode, compareName) {//compareName är lokal variabel 
 // End getSubjectData
 
 //getCourseData
-function getCourseData(XMLcode) {
+function getCourseData(XMLcode, subject) //Indata och valt ämne tas emot
+{
 	let courseElems = XMLcode.getElementsByTagName("course"); //
-	let HTMLcode = ""; // Textsträng med ny HTML-kod som skapas
-	let subjectElem = XMLcode.getElementsByTagName("subject")[0];
-
-	console.log(subjectElem.firstChild.data);
+	let HTMLcode = "<h3>" + subject + "</h3>";// Textsträng med ny HTML-kod som skapas. Inleds med rubrik.
 
 	for (let i = 0; i < courseElems.length; i++) {
-		console.log(courseElems.length);
+		let codeElem = courseElems[i].getElementsByTagName("code")[0].firstChild.data;//Kurskod
+		let titleElem = courseElems[i].getElementsByTagName("title")[0].firstChild.data;//Kursnamn
+		let creditsElem = courseElems[i].getElementsByTagName("credits")[0].firstChild.data;//Kurspoäng
+		//Hantering av "missing data" i datafil
+		//Villkorssatser accepterar tydlingen tilldelning. Denna sker därför innan
+		let nameElem = "";
+		if (courseElems[i].getElementsByTagName("name").length > 0) { nameElem = courseElems[i].getElementsByTagName("name")[0].firstChild.data };//Kontaktuppgift namn
 
-
-		let codeElem = courseElems[i].getElementsByTagName("code")[0];
-		let titleElem = courseElems[i].getElementsByTagName("title")[0];
-		let creditsElem = courseElems[i].getElementsByTagName("credits")[0];
-		let descriptionElem = courseElems[i].getElementsByTagName("description")[0];
-		let nameElem = courseElems[i].getElementsByTagName("name")[0];
-		let emailElem = courseElems[i].getElementsByTagName("email")[0];
-		let moreinfoElem = courseElems[i].getElementsByTagName("moreinfo")[0];
-
-		console.log("function getCourseData", codeElem.firstChild.data, titleElem.firstChild.data);
-		console.log(creditsElem.firstChild.data);
-		//console.log(typeof(nameElem.firstChild.data));
-		//console.log(emailElem.firstChild.data);
-		console.log("moreinfo", moreinfoElem);
-
-
-		// Utskrift av inlästa värden
-		HTMLcode += "<h3>" + subjectElem.firstChild.data + "</h3>";
-		HTMLcode += "<p><b>Kurskod:</b> " + codeElem.firstChild.data + "</p>";
-		HTMLcode += "<p><b>Kurs:</b> " + titleElem.firstChild.data + "</p>";
-		HTMLcode += "<p><b>HP:</b> " + creditsElem.firstChild.data + "</p>";
-		HTMLcode += "<p><b>Beskrivning:</b> " + descriptionElem.firstChild.data + "</p>";
-		//Funktion för att hantera "missing data"
-		if (nameElem.firstChild.data == null) { HTMLcode += "<p><b>Namn:</b> " + "Uppgift saknas" + "</p>" }
-		else (HTMLcode += "<p><b>Namn:</b> " + nameElem.firstChild.data + "</p>");
-		if (emailElem.firstChild.data != null) { HTMLcode += "<p><b>E-post:</b> " + emailElem.firstChild.data + "</p>"; }
-		//
-		HTMLcode += "<p><b> <a hrf=" + moreinfoElem + "> Mer information: </a> </b> url</p>";
-		HTMLcode += "<hr>";
+		let moreinfoElem = courseElems[i].getElementsByTagName("moreinfo")[0].getAttribute("url");//Länk till mer info
+		//Utskriftsrad skapas med länk till mer info
+		HTMLcode +="<p>"+ codeElem + ", <a hrf=" + moreinfoElem + "> " + titleElem + "</a>, " + creditsElem;
+		//Om uppgift om kontaktperson finns adderas denna information till utskriftsraden
+		if (courseElems[i].getElementsByTagName("name").length > 0) { HTMLcode += ", Kontaktperson: " + nameElem }
+		HTMLcode += "</p>";
 		courseList.innerHTML = HTMLcode;
 
 	}
+
+	//
+
+
+
 }
 // End getCourseData
