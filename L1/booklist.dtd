@@ -1,16 +1,19 @@
 <!-- 
+Data är utformade som en lista över lästa böcker under tre månader.
+Det finns en xml-fil för varje månad.
+Enheten (record etc) är bok. För varje bok anges författare, titel, utgivningsår och förläggare. Dessutom lästid, med start respektive slutdatum. För varje bok kan en bedömning göras på en skala 1-5. Slutligen finns en länk till bokomslaget. Bokomslagen finns nedladdade i /img-mappen.
 
  booklist*
  book
-  title
-  author (name)
-  publisher 
-  year (year published)
-reading
-   start (date)
-   finish (date)
-rating (1-5 stars)`
-cover|
+   author (name)
+   title
+   year (year published)
+   publisher 
+   reading
+      start (date)
+      finish (date)
+   rating (1-5 stars)`
+   cover (url)
 -->
 <!ELEMENT booklist (month+, book+)>
 <!ELEMENT month (#PCDATA)>
