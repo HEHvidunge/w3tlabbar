@@ -21,12 +21,21 @@ window.addEventListener("load",init); // init aktiveras då sidan är inladdad
 // ---------------------------------------------------------------
 // Kopiera alla länkar ur huvudtexten och lägg upp dem i en lista.
 function listLinks() {
-	
+
+	//querySelector(main section > div:first-of-type {} pekar på första divelementet)
+	// a-elementet copieras med clonNode()
+	//kopieras som nya childs till linkLIstElem
+	//kolla att attribut GIF följer med
+
+
+	linkListElem.innerHTML="Hallå";
 } // End listLinks
 // ---------------------------------------------------------------
 // Den kurs användaren klickat på, läggs in överst i kurslistan.
 function addCourse() {
-	
+// main section > div:last-of-type {} pekar på div-elementet
+	//append.Child till courseElems
+	//lägg på evenListener på nya element
 } // End addCourse
 
 // Den kurs användaren klickat på i kurslistan, tas bort.
