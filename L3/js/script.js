@@ -49,4 +49,7 @@ function addTeachers() {
 	const teachers = ["Romain Herault","Rune Körnefors","Jorge Zapico"];
 	const teacherLinks = ["https://lnu.se/personal/romain.herault","http://lnu.se/personal/rune.kornefors","https://lnu.se/personal/jorgeluis.zapico/"];
 	
+//querySelectorAll("main section:nth-of-type(3) div:first-of-type li") pekar på listan med kurser
+//Lärare läggs till med appendChild till li-elementet
+
 } // End addTeachers
