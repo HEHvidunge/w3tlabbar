@@ -22,12 +22,13 @@ window.addEventListener("load", init); // init aktiveras då sidan är inladdad
 // Kopiera alla länkar ur huvudtexten och lägg upp dem i en lista.
 function listLinks() {
 
-	if (linkListElem.innerHTML.length != 0) return;//bryter om länkar redan har kopierats, dvs om linkListElem har något innehåll
+	//if (linkListElem.innerHTML.length != 0) return;//bryter om länkar redan har kopierats, dvs om linkListElem har något innehåll
+	if (linkListElem.hasChildNodes()) return;//bryter om länkar redan har kopierats, dvs om linkListElem har något innehåll
 	let newLinks = document.querySelectorAll("main section:first-of-type div:first-of-type a")//skapar array av a-element i texten
 	for (let i = 0; i < newLinks.length; i++) {
 		let newElem = document.createElement("p");//skapar nytt p-element
 		let newNode = newLinks[i].cloneNode(true); //kopierar a-alement från arrayen
-		newNode.setAttribute("target","_blank");//kopplar attributet target=blank till a-elementet
+		newNode.setAttribute("target", "_blank");//kopplar attributet target=blank till a-elementet
 		newElem.appendChild(newNode);//kopplar ihop nytt p-element med a-elementet
 		linkListElem.appendChild(newElem);//skriver ut länkar
 	}
@@ -43,13 +44,27 @@ function listLinks() {
 // ---------------------------------------------------------------
 // Den kurs användaren klickat på, läggs in överst i kurslistan.
 function addCourse() {
-	// main section > div:last-of-type {} pekar på div-elementet
-	//append.Child till courseElems
-	//lägg på evenListener på nya element
+	let clonedElem = this.cloneNode(true);
+	
+	let newText = document.createTextNode(clonedElem.innerText);
+	console.log(newText);
+	console.log(list = document.body.childNodes);
+//kolla om kursen redan kopierats
+//lägg ny kurs överst i listan
+		
+	let newElem = document.createElement("p");
+			
+
+	newElem.appendChild(newText);
+	newElem.style.cursor = "pointer";
+	newElem.addEventListener("click", removeCourse)
+	courseListElem.appendChild(newElem);
+	
 } // End addCourse
 
 // Den kurs användaren klickat på i kurslistan, tas bort.
 function removeCourse() {
+	console.log("REMOVE");
 	//this.parentNode.removeChild(this)
 } // End removeCourse
 // ---------------------------------------------------------------
