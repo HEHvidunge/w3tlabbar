@@ -63,7 +63,7 @@ function addCourse() {
 // Den kurs användaren klickat på i kurslistan, tas bort.
 function removeCourse() {
 	console.log("REMOVE");
-	//this.parentNode.removeChild(this)
+	this.parentNode.removeChild(this);
 } // End removeCourse
 // ---------------------------------------------------------------
 // ----- Extramerit -----
