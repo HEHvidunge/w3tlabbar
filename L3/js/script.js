@@ -72,6 +72,17 @@ function addTeachers() {
 	const teachers = ["Romain Herault", "Rune Körnefors", "Jorge Zapico"];
 	const teacherLinks = ["https://lnu.se/personal/romain.herault", "http://lnu.se/personal/rune.kornefors", "https://lnu.se/personal/jorgeluis.zapico/"];
 
+let newTextElement=[];
+	let courseList = document.querySelectorAll("main section:last-of-type div:first-of-type li");
+	
+	for (let i=0;i<courseList.length;i++){
+		newTextElement[i]=courseList[i].innerHTML;
+		let newListElem=document.createElement("li");
+		//let newLinkElement=document.createElement("")
+		
+		console.log(newTextElement[i])
+	}
+
 	//querySelectorAll("main section:nth-of-type(3) div:first-of-type li") pekar på listan med kurser
 	//Lärare läggs till med appendChild till li-elementet
 
