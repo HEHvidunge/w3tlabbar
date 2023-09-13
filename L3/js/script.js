@@ -75,12 +75,20 @@ function addTeachers() {
 	let newTextElement = [];
 	let courseList = document.querySelectorAll("main section:last-of-type div:first-of-type ul li");
 	for (let i = 0; i < courseList.length; i++) {
-		newTextElement[i] = courseList[i].innerHTML;//Tar fram textinnehållet i li-elementen
-		let newListElem = document.createElement("li"); //skapar nytt li-element
-		newListElem.innerHTML = newTextElement[i] + "<br> <a href= '" + teacherLinks[i] + "'> " + teachers[i] + "</a>"; //Skapar informationen i li-elementet
+		let newElem = document.createElement("br");
+		let newLinkElem = document.createElement("a");
+		newLinkElem.innerHTML=("href= '" + teacherLinks[i] + "'> " + teachers[i]);
+		//newLinkElem.appendChild(newTextElement);
+		//console.log(newLinkElem);
+		newElem.appendChild(newLinkElem);
+		console.log(newElem);
+		courseList[i].appendChild(newElem);
+		//newTextElement[i] = courseList[i].innerHTML;//Tar fram textinnehållet i li-elementen
+		//let newListElem = document.createElement("li"); //skapar nytt li-element
+		//newListElem.innerHTML = newTextElement[i] + "<br> <a href= '" + teacherLinks[i] + "'> " + teachers[i] + "</a>"; //Skapar informationen i li-elementet
 
-		courseList[i].replaceWith(newListElem); //ersätter befintligt li-element med nytt
-
+		//courseList[i].replaceWith(newListElem); //ersätter befintligt li-element med nytt
+		//ändra atribut
 
 	}
 
