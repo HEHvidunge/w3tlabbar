@@ -1,6 +1,10 @@
 // Globala variabler
 var linkListElem;	// Referens till div-elementet för länkarna
 var courseListElem;	// Referens till div-element där valda kurser ska läggas.
+//Globala variabler för hämtning av data för uppgift 3.e
+var teacherCodeElem = [];
+var teacherNameElem = [];
+var teacherLinkElem = [];
 
 // Initiering av globala variabler och händelsehanterare.
 function init() {
@@ -72,26 +76,88 @@ function addTeachers() {
 	const teachers = ["Romain Herault", "Rune Körnefors", "Jorge Zapico"];
 	const teacherLinks = ["https://lnu.se/personal/romain.herault", "http://lnu.se/personal/rune.kornefors", "https://lnu.se/personal/jorgeluis.zapico/"];
 
-	let newTextElement = [];
+	requestTeacherData("teachers");
+
+	console.log(teacherCodeElem);
+	console.log(teacherNameElem);
+	console.log(teacherLinkElem);
+
 	let courseList = document.querySelectorAll("main section:last-of-type div:first-of-type ul li");
 	for (let i = 0; i < courseList.length; i++) {
-		let newElem = document.createElement("br");
-		let newLinkElem = document.createElement("a");
-		newLinkElem.innerHTML=("href= '" + teacherLinks[i] + "'> " + teachers[i]);
-		//newLinkElem.appendChild(newTextElement);
-		//console.log(newLinkElem);
-		newElem.appendChild(newLinkElem);
-		console.log(newElem);
-		courseList[i].appendChild(newElem);
-		//newTextElement[i] = courseList[i].innerHTML;//Tar fram textinnehållet i li-elementen
-		//let newListElem = document.createElement("li"); //skapar nytt li-element
-		//newListElem.innerHTML = newTextElement[i] + "<br> <a href= '" + teacherLinks[i] + "'> " + teachers[i] + "</a>"; //Skapar informationen i li-elementet
+		let courseCode = ((courseList[i].innerText.substring(0, 6)));
+		console.log(teacherCodeElem[i]);
+		console.log(teacherNameElem[i]);
+		console.log(teacherLinkElem[i]);
+		console.log(courseCode);
 
-		//courseList[i].replaceWith(newListElem); //ersätter befintligt li-element med nytt
-		//ändra atribut
+		if (teacherCodeElem[i] = courseCode) {
+			let teacher = teacherNameElem[i];
+			let teacherLink = teacherLinkElem[i];
+			console.log(teacher, teacherLink);
+		}
+		let newBrElem = document.createElement("br");//Skapar br-element
+		courseList[i].appendChild(newBrElem);//Kopplar elementet till befintlig lista
+		let newLinkElem = document.createElement("a");//Skapar a-element
+		let newText = document.createTextNode(teachers[i]);//Skapar text-node med lärarnamnet
+		newLinkElem.setAttribute("hrf", teacherLinks[i]); //Tilldelar a-elementet hrf attribut med länk
+		newLinkElem.appendChild(newText);//Kopplar text-elementet till a-elementet
+		newLinkElem.setAttribute("target", "_blank");//Tilldelar a-elementet target-attribud
+		courseList[i].appendChild(newLinkElem);//kopplar nytt element till den befintliga listan
 
 	}
 
 	//Lärare läggs till med appendChild till li-elementet
 
 } // End addTeachers
+
+//Tillägg
+
+
+
+//requestTeacherData
+function requestTeacherData(filename, code) { // filname är namnet på taggen för de data som ska hämtas subject är valt ämne
+
+	let request = new XMLHttpRequest(); // Object för Ajax-anropet
+	request.open("GET", "xml/" + filename + ".xml", true);
+	request.send(null); // Skicka begäran till servern
+	request.onreadystatechange = function () { // Funktion för att avläsa status i kommunikationen
+		if (request.readyState == 4) // readyState 4 --> kommunikationen är klar
+			//Nästa funktion anropas. Idata och valt ämnesområde skickas vidare
+			if (request.status == 200) getTeacherData(request.responseXML, code); // status 200 
+			else alert("Den begärda resursen finns inte.");
+	}
+
+}
+//getTeacherData
+function getTeacherData(XMLcode) //Indata och valt ämne tas emot
+{
+	let teacherElems = XMLcode.getElementsByTagName("course"); //
+	//let HTMLcode = "<h3>" + subject + "</h3>";// Textsträng med ny HTML-kod som skapas. Inleds med rubrik.
+	//console.log(teacherElems);
+
+	for (let i = 0; i < teacherElems.length; i++) {
+
+		teacherCodeElem[i] = teacherElems[i].getAttribute("code");//Kurskod
+		teacherNameElem[i] = teacherElems[i].childNodes[1].innerHTML;//Lärarnamn
+		teacherLinkElem[i] = teacherElems[i].lastElementChild.getAttribute("url");//Länk
+
+		//console.log(teacherCodeElem[i]);
+		//console.log(teacherNameElem[i]);
+		//console.log(teacherLinkElem[i]);
+
+
+		//Hantering av "missing data" i datafil
+		//Villkorssatser accepterar tydlingen tilldelning. Denna sker därför innan
+		//let nameElem = "";
+		//if (teacherElems[i].getElementsByTagName("name").length > 0) { nameElem = teacherElems[i].getElementsByTagName("name")[0].firstChild.data };//Kontaktuppgift namn
+
+		//let moreinfoElem = teacherElems[i].getElementsByTagName("moreinfo")[0].getAttribute("url");//Länk till mer info
+		//Utskriftsrad skapas med länk till mer info
+		//HTMLcode +="<p>"+ codeElem + ", <a hrf=" + moreinfoElem + "> " + titleElem + "</a>, " + creditsElem;
+		//Om uppgift om kontaktperson finns adderas denna information till utskriftsraden
+		//if (teacherElems[i].getElementsByTagName("name").length > 0) { HTMLcode += ", Kontaktperson: " + nameElem }
+		//HTMLcode += "</p>";
+		//teacherList.innerHTML = HTMLcode;
+
+	}
+}
