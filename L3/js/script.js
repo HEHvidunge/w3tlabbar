@@ -24,9 +24,10 @@ function init() {
 window.addEventListener("load", init); // init aktiveras då sidan är inladdad
 // ---------------------------------------------------------------
 // Kopiera alla länkar ur huvudtexten och lägg upp dem i en lista.
+
 function listLinks() {
 
-	//if (linkListElem.innerHTML.length != 0) return;//bryter om länkar redan har kopierats, dvs om linkListElem har något innehåll
+	
 	if (linkListElem.hasChildNodes()) return;//bryter om länkar redan har kopierats, dvs om linkListElem har något innehåll
 	let newLinks = document.querySelectorAll("main section:first-of-type div:first-of-type a")//skapar array av a-element i texten
 	for (let i = 0; i < newLinks.length; i++) {
@@ -36,14 +37,10 @@ function listLinks() {
 		newElem.appendChild(newNode);//kopplar ihop nytt p-element med a-elementet
 		linkListElem.appendChild(newElem);//skriver ut länkar
 	}
-	console.log(newLinks);
 
 	//kolla att attribut GIF följer med
-
-
-
-	//linkListElem.innerHTML="Hallå";
 }
+	
 // End listLinks
 // ---------------------------------------------------------------
 // Den kurs användaren klickat på, läggs in överst i kurslistan.
@@ -78,40 +75,7 @@ function addTeachers() {
 
 	requestTeacherData("teachers");
 
-	console.log(teacherCodeElem);
-	console.log(teacherNameElem);
-	console.log(teacherLinkElem);
-
-	let courseList = document.querySelectorAll("main section:last-of-type div:first-of-type ul li");
-	for (let i = 0; i < courseList.length; i++) {
-		let courseCode = ((courseList[i].innerText.substring(0, 6)));
-		console.log(teacherCodeElem[i]);
-		console.log(teacherNameElem[i]);
-		console.log(teacherLinkElem[i]);
-		console.log(courseCode);
-
-		if (teacherCodeElem[i] = courseCode) {
-			let teacher = teacherNameElem[i];
-			let teacherLink = teacherLinkElem[i];
-			console.log(teacher, teacherLink);
-		}
-		let newBrElem = document.createElement("br");//Skapar br-element
-		courseList[i].appendChild(newBrElem);//Kopplar elementet till befintlig lista
-		let newLinkElem = document.createElement("a");//Skapar a-element
-		let newText = document.createTextNode(teachers[i]);//Skapar text-node med lärarnamnet
-		newLinkElem.setAttribute("hrf", teacherLinks[i]); //Tilldelar a-elementet hrf attribut med länk
-		newLinkElem.appendChild(newText);//Kopplar text-elementet till a-elementet
-		newLinkElem.setAttribute("target", "_blank");//Tilldelar a-elementet target-attribud
-		courseList[i].appendChild(newLinkElem);//kopplar nytt element till den befintliga listan
-
-	}
-
-	//Lärare läggs till med appendChild till li-elementet
-
 } // End addTeachers
-
-//Tillägg
-
 
 
 //requestTeacherData
@@ -129,35 +93,38 @@ function requestTeacherData(filename, code) { // filname är namnet på taggen f
 
 }
 //getTeacherData
-function getTeacherData(XMLcode) //Indata och valt ämne tas emot
+function getTeacherData(XMLcode) //Indata bereds och publiceras
 {
 	let teacherElems = XMLcode.getElementsByTagName("course"); //
-	//let HTMLcode = "<h3>" + subject + "</h3>";// Textsträng med ny HTML-kod som skapas. Inleds med rubrik.
-	//console.log(teacherElems);
+	
 
 	for (let i = 0; i < teacherElems.length; i++) {
-
+		//Packar upp information från XML-filen och skapar en array för varje variabel
 		teacherCodeElem[i] = teacherElems[i].getAttribute("code");//Kurskod
 		teacherNameElem[i] = teacherElems[i].childNodes[1].innerHTML;//Lärarnamn
 		teacherLinkElem[i] = teacherElems[i].lastElementChild.getAttribute("url");//Länk
 
-		//console.log(teacherCodeElem[i]);
-		//console.log(teacherNameElem[i]);
-		//console.log(teacherLinkElem[i]);
+	}
+	//Hämtar list-information från HTML-filen
+	let courseList = document.querySelectorAll("main section:last-of-type div:first-of-type ul li");
+	for (let i = 0; i < courseList.length; i++) {
 
+		let courseCode = ((courseList[i].innerText.substring(0, 6)));
 
-		//Hantering av "missing data" i datafil
-		//Villkorssatser accepterar tydlingen tilldelning. Denna sker därför innan
-		//let nameElem = "";
-		//if (teacherElems[i].getElementsByTagName("name").length > 0) { nameElem = teacherElems[i].getElementsByTagName("name")[0].firstChild.data };//Kontaktuppgift namn
+		if (teacherCodeElem[i] = courseCode) {
 
-		//let moreinfoElem = teacherElems[i].getElementsByTagName("moreinfo")[0].getAttribute("url");//Länk till mer info
-		//Utskriftsrad skapas med länk till mer info
-		//HTMLcode +="<p>"+ codeElem + ", <a hrf=" + moreinfoElem + "> " + titleElem + "</a>, " + creditsElem;
-		//Om uppgift om kontaktperson finns adderas denna information till utskriftsraden
-		//if (teacherElems[i].getElementsByTagName("name").length > 0) { HTMLcode += ", Kontaktperson: " + nameElem }
-		//HTMLcode += "</p>";
-		//teacherList.innerHTML = HTMLcode;
+			//Informationen publiceras
+
+			let newBrElem = document.createElement("br");//Skapar br-element
+			courseList[i].appendChild(newBrElem);//Kopplar elementet till befintlig lista
+			let newLinkElem = document.createElement("a");//Skapar a-element
+			let newText = document.createTextNode(teacherNameElem[i]);//Skapar text-node med lärarnamnet
+			newLinkElem.setAttribute("hrf", teacherLinkElem[i]); //Tilldelar a-elementet hrf attribut med länk
+			newLinkElem.appendChild(newText);//Kopplar text-elementet till a-elementet
+			newLinkElem.setAttribute("target", "_blank");//Tilldelar a-elementet target-attribud
+			courseList[i].appendChild(newLinkElem);//kopplar nytt element till den befintliga listan
+
+		}
 
 	}
 }
