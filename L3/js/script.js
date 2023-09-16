@@ -27,7 +27,7 @@ window.addEventListener("load", init); // init aktiveras då sidan är inladdad
 
 function listLinks() {
 
-	
+
 	if (linkListElem.hasChildNodes()) return;//bryter om länkar redan har kopierats, dvs om linkListElem har något innehåll
 	let newLinks = document.querySelectorAll("main section:first-of-type div:first-of-type a")//skapar array av a-element i texten
 	for (let i = 0; i < newLinks.length; i++) {
@@ -40,7 +40,7 @@ function listLinks() {
 
 	//kolla att attribut GIF följer med
 }
-	
+
 // End listLinks
 // ---------------------------------------------------------------
 // Den kurs användaren klickat på, läggs in överst i kurslistan.
@@ -96,7 +96,7 @@ function requestTeacherData(filename, code) { // filname är namnet på taggen f
 function getTeacherData(XMLcode) //Indata bereds och publiceras
 {
 	let teacherElems = XMLcode.getElementsByTagName("course"); //
-	
+
 
 	for (let i = 0; i < teacherElems.length; i++) {
 		//Packar upp information från XML-filen och skapar en array för varje variabel
