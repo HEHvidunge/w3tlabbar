@@ -120,8 +120,12 @@ function getTeacherData(XMLcode) //Indata bereds och publiceras
 			let newLinkElem = document.createElement("a");//Skapar a-element
 			let newText = document.createTextNode(teacherNameElem[i]);//Skapar text-node med lärarnamnet
 			newLinkElem.setAttribute("hrf", teacherLinkElem[i]); //Tilldelar a-elementet hrf attribut med länk
-			newLinkElem.appendChild(newText);//Kopplar text-elementet till a-elementet
 			newLinkElem.setAttribute("target", "_blank");//Tilldelar a-elementet target-attribud
+			newLinkElem.appendChild(newText);//Kopplar text-elementet till a-elementet
+			console.log(newText);
+			console.log(newLinkElem);
+		
+			
 			courseList[i].appendChild(newLinkElem);//kopplar nytt element till den befintliga listan
 
 		}
