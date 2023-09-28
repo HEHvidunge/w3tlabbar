@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE booklist SYSTEM "booklist.dtd">
+
+<booklist>
+<month>August</month>
+    <book>
+        <author>Cat Jarman</author>
+    <title>River Kings: A New History of Vikings from Scandinavia to
+        the Silk Roads</title>
+    <year>2022</year>
+    <publisher>HarperCollins</publisher>
+    <reading>
+            <start>20230801</start>
+            <finish>20230808</finish>
+        </reading>			
+    <rating>3</rating> 
+    <cover url="img/riverkings.jpg"/>
+    </book>
+
+    <book>
+        <author>Hugh Kennedy</author>
+    <title>The Great Arab Conquests How the Spread of Islam Changed
+        the World We Live In</title>
+    <year>2008</year>
+    <publisher>Phoenix</publisher>
+    <reading>
+            <start>20230808</start>
+            <finish>20230812</finish>
+        </reading>			
+    <rating>4</rating> 
+    <cover url="img/arabconquest.jpg"/>
+    </book>
+
+    <book>
+        <author>William J. Bernstein</author>
+    <title>A Splendid Exchange: How Trade Shaped the World</title>
+    <year>
+        2008</year>
+    <publisher>Atlantic Monthly Press</publisher>
+    <reading>
+            <start>20230812</start>
+            <finish>20230816 </finish>
+        </reading>			
+    <rating>3</rating> 
+    <cover url="img/splendidexchange.jpg"/>
+    </book>
+
+    <book>
+        <author>Brendan Simms</author>
+    <title>Europe: The Struggle for Supremacy from 1453 to the
+        Present</title>
+    <year>2013</year>
+    <publisher>Basic Books</publisher>
+    <reading>
+            <start>20230816</start>
+            <finish>20230820</finish>
+        </reading>			
+    <rating>4</rating> 
+    <cover url="img/europe.jpg"/>
+    </book>
+
+    <book>
+        <author>Dominic Sandbrook</author>
+    <title>Who Dares Wins</title>
+    <year>2020</year>
+    <publisher>
+        Penguin</publisher>
+    <reading>
+            <start>20230820</start>
+            <finish>20230823</finish>
+        </reading>			
+    <rating>5</rating> 
+    <cover url="img/whodares.jpg"/>
+    </book>
+</booklist>
