@@ -11,7 +11,7 @@
                 "finish": "20230808"
             },
             "rating": 3,
-            "cover url": "img/riverkings.jpg"
+            "coverurl": "img/riverkings.jpg"
         },
         {
             "author": "Hugh Kennedy",
@@ -23,7 +23,7 @@
                 "finish": "20230812"
             },
             "rating": 4,
-            "cover url": "img/arabconquest.jpg"
+            "coverurl": "img/arabconquest.jpg"
         },
         {
             "author": "William J. Bernstein",
@@ -35,7 +35,7 @@
                 "finish": "20230816"
             },
             "rating": 3,
-            "cover url": "img/splendidexchange.jpg"
+            "coverurl": "img/splendidexchange.jpg"
         },
         {
             "author": "Brendan Simms",
@@ -47,7 +47,7 @@
                 "finish": "20230820"
             },
             "rating": 4,
-            "cover url": "img/europe.jpg"
+            "coverurl": "img/europe.jpg"
         },
         {
             "author": "Dominic Sandbrook",
@@ -59,7 +59,7 @@
                 "finish": "20230823"
             },
             "rating": 5,
-            "cover url": "img/whodares.jpg"
+            "coverurl": "img/whodares.jpg"
         },
         {
             "author": "Cat Jarman",
@@ -71,7 +71,7 @@
                 "finish": "20230808"
             },
             "rating": 3,
-            "cover url": "img/riverkings.jpg"
+            "coverurl": "img/riverkings.jpg"
         },
         {
             "author": "Hugh Kennedy",
@@ -83,7 +83,7 @@
                 "finish": "20230812"
             },
             "rating": 4,
-            "cover url": "img/arabconquest.jpg"
+            "coverurl": "img/arabconquest.jpg"
         },
         {
             "author": "William J. Bernstein",
@@ -95,7 +95,7 @@
                 "finish": "20230816"
             },
             "rating": 3,
-            "cover url": "img/splendidexchange.jpg"
+            "coverurl": "img/splendidexchange.jpg"
         }
     ]
 }
