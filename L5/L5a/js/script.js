@@ -1,51 +1,52 @@
 // ----- Constructorfunktion -----
 class ImageViewer {
 	constructor(id) {
-		this.titleElem = document.querySelector("#" + id + "h3"),
-			this.imgElem = document.querySelector("#" + id + " img"),
-			this.captionElem = document.querySelector("#" + id + " p"),
+		this.titleElem = document.querySelector("#" + id + "h3"),//Referens till elementet för rubriken
+			this.imgElem = document.querySelector("#" + id + " img"),//Referens till elementet för bilden
+			this.captionElem = document.querySelector("#" + id + " p"),//Referens till elementet för bildtexten
 			this.category = "";
 		this.list = {
-			imgUrl: ["img/blank.png"],
-			imgCaption: [""]
+			imgUrl: ["img/blank.png"],//Ingen bild vid start
+			imgCaption: [""]//Ingen bildtext vid start
 		},
-			this.imgIx = 0,
-			this.timer = null
+			this.imgIx = 0,//Index för aktuell bild nollställs
+			this.timer = null//Används ej
 
 	};
 	//------Metoder kopplade till objektet ImageViewer------
 	// Gör ett Ajax-anrop för att läsa in begärd fil
 	requestImages(file) {
-		console.log(file);
+		
 		let request = new XMLHttpRequest(); // Object för Ajax-anropet
 		request.open("GET", file, true);
 		request.send(null); // Skicka begäran till servern
 		request.onreadystatechange = function () { // Funktion för att avläsa status i kommunikationen
 			if (request.readyState == 4) // readyState 4 --> kommunikationen är klar
-				if (request.status == 200) imgViewer.getImages(request.responseXML); // status 200 (OK) --> filen fanns
-				else window.alert("Den begärda resursen fanns inte.");
+				if (request.status == 200) imgViewer.getImages(request.responseText); // status 200 (OK) --> filen fanns
+				else window.alert("Den begärda resursen fanns inte.");//Felmeddelande om filen inte finns
 		}
 	};
 	// Funktion för att tolka XML-koden och lägga in innehållet i variablerna för bilderna i bildspelet
-	getImages(XMLcode) { // Parametern XMLcode är hela den inlästa XML-koden
-		let urlElems = XMLcode.getElementsByTagName("url"); // Alla url-element
-		let captionElems = XMLcode.getElementsByTagName("caption"); // Alla caption-element
-		imgViewer.list.imgUrl = [];
+	getImages(JSONText) {
+		this.titleElem = JSONText.category;//Lägger in kategorin i rubriken
+		alert(JSONText.category);
+		alert(JSON.parse(JSONText));
+		let data = JSON.parse(JSONText).image;//Hämtar data från JSON-filen
+		imgViewer.list.imgUrl = [];//Nollställning av listor
 		imgViewer.list.imgCaption = [];
-		for (let i = 0; i < urlElems.length; i++) {
-			imgViewer.list.imgUrl[i] = (urlElems[i].firstChild.data);
-			imgViewer.list.imgCaption[i] = (captionElems[i].firstChild.data);
-			console.log(this);
+		// Loopa igenom alla bilder och lägg in dem i listorna
+		for (let i = 0; i < data.length; i++) {
+			imgViewer.list.imgUrl[i] = data[i].url;//Lägger in bilderna i listan
+			imgViewer.list.imgCaption[i] = data[i].caption;//Lägger in bildtexterna i listan
+			
 		}
-		this.imgIx = 0;
+		this.imgIx = 0; //Nollställer bildindex
 		this.showImage(); // Visa första bilden
 	}; // Slut
 
 	// Visa bilden med index imgIx
 	showImage() {
-
 		this.imgElem.src = this.list.imgUrl[this.imgIx];
-
 		this.captionElem.innerHTML = (this.imgIx + 1) + ". " + this.list.imgCaption[this.imgIx];
 	}; // Slut visa bilden
 
@@ -83,16 +84,16 @@ class ImageViewer {
 
 //-------Initiering av händelsehanterare
 function init() {
-	imgViewer = new ImageViewer("imgViewer");
+	imgViewer = new ImageViewer("imgViewer");//Initiering av class
+	//Åberopar menyn sparar valt alternativ
 	document.querySelector("#categoryMenu").addEventListener("change",
 		function () {
-			imgViewer.requestImages("xml/images" + this.selectedIndex + ".xml");
+			imgViewer.requestImages("json/images" + this.selectedIndex + ".json");
 			this.selectedIndex = 0;
-
 		}
 	);
-	document.querySelector("#prevBtn").addEventListener("click", function () { imgViewer.prevImage(); });
-	document.querySelector("#nextBtn").addEventListener("click", function () { imgViewer.nextImage() });
+	document.querySelector("#prevBtn").addEventListener("click", function () { imgViewer.prevImage(); });//Händelsehanterare för "föregående"-knapp
+	document.querySelector("#nextBtn").addEventListener("click", function () { imgViewer.nextImage() });//Händelsehanterare för "nästa"-knapp
 	//---Slut på initiering av händelsehanterare
 
 
