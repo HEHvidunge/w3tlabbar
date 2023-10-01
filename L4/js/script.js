@@ -2,12 +2,12 @@
 class ImageViewer {
 	constructor(id) {
 		this.titleElem = document.querySelector("#" + id + " h3"),
-		//console.log(this.titleElem);
-		console.log(id);
-			this.imgElem = document.querySelector("#" + id + " img"),
+			//console.log(this.titleElem);
+			console.log(id);
+		this.imgElem = document.querySelector("#" + id + " img"),
 			this.captionElem = document.querySelector("#" + id + " p"),
 			this.category = "";
-			//this.category= document.querySelector("#" + id + " h3")
+		//this.category= document.querySelector("#" + id + " h3")
 		this.list = {
 			imgUrl: ["img/blank.png"],
 			imgCaption: [""]
@@ -34,15 +34,16 @@ class ImageViewer {
 		let urlElems = XMLcode.getElementsByTagName("url"); // Alla url-element
 		let captionElems = XMLcode.getElementsByTagName("caption"); // Alla caption-element
 		//let titleElem = XMLcode.getElementsByTagName("imagelist");
-		console.log(XMLcode.getElementsByTagName("imagelist"));
-		//imgViewer.category=XMLcode.getElementsByTagName("category");
-		//console.log(titleElem);
+		console.log(XMLcode.getElementsByTagName("category")[0].firstChild.data);
+
+		imgViewer.titleElem = XMLcode.getElementsByTagName("category")[0].firstChild.data;
+		console.log(imgViewer.titleElem);
 		imgViewer.list.imgUrl = [];
 		imgViewer.list.imgCaption = [];
 		for (let i = 0; i < urlElems.length; i++) {
 			imgViewer.list.imgUrl[i] = (urlElems[i].firstChild.data);
 			imgViewer.list.imgCaption[i] = (captionElems[i].firstChild.data);
-		
+
 		}
 		this.imgIx = 0;
 		//console.log(imgViewer.titleElem);
