@@ -28,23 +28,23 @@ class ImageViewer {
 	};
 	// Funktion för att tolka XML-koden och lägga in innehållet i variablerna för bilderna i bildspelet
 	getImages(JSONText) {
-		
+
 
 		let data = JSON.parse(JSONText).image;//Hämtar data från JSON-filen
 		let temp = JSON.parse(JSONText);
 		imgViewer.category = temp.category;//Hämtar kategorinamnet	
 		console.log(imgViewer.category);
-		
+
 		this.titleElem.innerHTML = imgViewer.category;//Visar kategorinamnet
-	
-		
+
+
 		imgViewer.list.imgUrl = [];//Nollställning av listor
 		imgViewer.list.imgCaption = [];
 		// Loopa igenom alla bilder och lägg in dem i listorna
 		for (let i = 0; i < data.length; i++) {
 			imgViewer.list.imgUrl[i] = data[i].url;//Lägger in bilderna i listan
 			imgViewer.list.imgCaption[i] = data[i].caption;//Lägger in bildtexterna i listan
-			
+
 
 		}
 		this.imgIx = 0; //Nollställer bildindex
@@ -53,21 +53,27 @@ class ImageViewer {
 
 	// Visa bilden med index imgIx
 	showImage() {
+		//Visar bild
 		this.imgElem.src = this.list.imgUrl[this.imgIx];
+		//Visar bildtext
 		this.captionElem.innerHTML = (this.imgIx + 1) + ". " + this.list.imgCaption[this.imgIx];
 	}; // Slut visa bilden
 
 	// Visa föregående bild
 	prevImage() {
+		//Om bilden inte är den sista i listan backa en bild
 		if (this.imgIx > 0) this.imgIx--;
-		else this.imgIx = this.list.imgUrl.length - 1; // Gå runt till sista bilden
+		// Annars gå runt till sista bilden
+		else this.imgIx = this.list.imgUrl.length - 1;
 		this.showImage();
 	}; // Slut visa föregående bild
 
 	// Visa nästa bild
 	nextImage() {
+		//Om det finns bilder kvar i listan gå frammåt en bild
 		if (this.imgIx < this.list.imgUrl.length - 1) this.imgIx++;
-		else this.imgIx = 0; // Gå runt till första bilden
+		// Annars gå runt till första bilden
+		else this.imgIx = 0; 
 		this.showImage();
 	}; // Slut visa nästa bild
 
@@ -92,7 +98,7 @@ class ImageViewer {
 //-------Initiering av händelsehanterare
 function init() {
 	imgViewer = new ImageViewer("imgViewer");//Initiering av class
-	//Åberopar menyn sparar valt alternativ
+	//Åberopar menyn och sparar valt alternativ
 	document.querySelector("#categoryMenu").addEventListener("change",
 		function () {
 			imgViewer.requestImages("json/images" + this.selectedIndex + ".json");
