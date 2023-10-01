@@ -16,7 +16,7 @@ class ImageViewer {
 	//------Metoder kopplade till objektet ImageViewer------
 	// Gör ett Ajax-anrop för att läsa in begärd fil
 	requestImages(file) {
-		
+
 		let request = new XMLHttpRequest(); // Object för Ajax-anropet
 		request.open("GET", file, true);
 		request.send(null); // Skicka begäran till servern
@@ -28,17 +28,22 @@ class ImageViewer {
 	};
 	// Funktion för att tolka XML-koden och lägga in innehållet i variablerna för bilderna i bildspelet
 	getImages(JSONText) {
-		this.titleElem = JSONText.category;//Lägger in kategorin i rubriken
-		alert(JSONText.category);
-		alert(JSON.parse(JSONText));
+		//imgViewer.titleElem = JSON.parse(JSONText).category;//Lägger in kategorin i rubriken
+
 		let data = JSON.parse(JSONText).image;//Hämtar data från JSON-filen
+		let temp = JSON.parse(JSONText);
+		
+		//console.log(data);
+		console.log(temp.category);
+		console.log(this.titleElem);
 		imgViewer.list.imgUrl = [];//Nollställning av listor
 		imgViewer.list.imgCaption = [];
 		// Loopa igenom alla bilder och lägg in dem i listorna
 		for (let i = 0; i < data.length; i++) {
 			imgViewer.list.imgUrl[i] = data[i].url;//Lägger in bilderna i listan
 			imgViewer.list.imgCaption[i] = data[i].caption;//Lägger in bildtexterna i listan
-			
+			imgViewer.titleElem[i] = temp.category;//Lägger in kategorin i rubriken
+
 		}
 		this.imgIx = 0; //Nollställer bildindex
 		this.showImage(); // Visa första bilden

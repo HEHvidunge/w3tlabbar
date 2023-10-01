@@ -1,10 +1,13 @@
 // ----- Constructorfunktion -----
 class ImageViewer {
 	constructor(id) {
-		this.titleElem = document.querySelector("#" + id + "h3"),
+		this.titleElem = document.querySelector("#" + id + " h3"),
+		//console.log(this.titleElem);
+		console.log(id);
 			this.imgElem = document.querySelector("#" + id + " img"),
 			this.captionElem = document.querySelector("#" + id + " p"),
 			this.category = "";
+			//this.category= document.querySelector("#" + id + " h3")
 		this.list = {
 			imgUrl: ["img/blank.png"],
 			imgCaption: [""]
@@ -16,7 +19,7 @@ class ImageViewer {
 	//------Metoder kopplade till objektet ImageViewer------
 	// Gör ett Ajax-anrop för att läsa in begärd fil
 	requestImages(file) {
-		console.log(file);
+		//console.log(file);
 		let request = new XMLHttpRequest(); // Object för Ajax-anropet
 		request.open("GET", file, true);
 		request.send(null); // Skicka begäran till servern
@@ -30,14 +33,19 @@ class ImageViewer {
 	getImages(XMLcode) { // Parametern XMLcode är hela den inlästa XML-koden
 		let urlElems = XMLcode.getElementsByTagName("url"); // Alla url-element
 		let captionElems = XMLcode.getElementsByTagName("caption"); // Alla caption-element
+		//let titleElem = XMLcode.getElementsByTagName("imagelist");
+		console.log(XMLcode.getElementsByTagName("imagelist"));
+		//imgViewer.category=XMLcode.getElementsByTagName("category");
+		//console.log(titleElem);
 		imgViewer.list.imgUrl = [];
 		imgViewer.list.imgCaption = [];
 		for (let i = 0; i < urlElems.length; i++) {
 			imgViewer.list.imgUrl[i] = (urlElems[i].firstChild.data);
 			imgViewer.list.imgCaption[i] = (captionElems[i].firstChild.data);
-			console.log(this);
+		
 		}
 		this.imgIx = 0;
+		//console.log(imgViewer.titleElem);
 		this.showImage(); // Visa första bilden
 	}; // Slut
 
