@@ -1,5 +1,5 @@
 {
-    "month": "August",
+    "month": "Augusti",
     "books": [
         {
             "author": "Cat Jarman",
@@ -83,7 +83,7 @@
                 "finish": "20230812"
             },
             "rating": 4,
-            "coverurl": "img/arabconquest.jpg"
+            "coverurl": "img/arabconquests.jpg"
         },
         {
             "author": "William J. Bernstein",
