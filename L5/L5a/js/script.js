@@ -1,7 +1,7 @@
 // ----- Constructorfunktion -----
 class ImageViewer {
 	constructor(id) {
-		this.titleElem = document.querySelector("#" + id + "h3"),//Referens till elementet för rubriken
+		this.titleElem = document.querySelector("#" + id + " h3"),//Referens till elementet för rubriken
 			this.imgElem = document.querySelector("#" + id + " img"),//Referens till elementet för bilden
 			this.captionElem = document.querySelector("#" + id + " p"),//Referens till elementet för bildtexten
 			this.category = "";
@@ -28,21 +28,23 @@ class ImageViewer {
 	};
 	// Funktion för att tolka XML-koden och lägga in innehållet i variablerna för bilderna i bildspelet
 	getImages(JSONText) {
-		//imgViewer.titleElem = JSON.parse(JSONText).category;//Lägger in kategorin i rubriken
+		
 
 		let data = JSON.parse(JSONText).image;//Hämtar data från JSON-filen
 		let temp = JSON.parse(JSONText);
+		imgViewer.category = temp.category;//Hämtar kategorinamnet	
+		console.log(imgViewer.category);
 		
-		//console.log(data);
-		console.log(temp.category);
-		console.log(this.titleElem);
+		this.titleElem.innerHTML = imgViewer.category;//Visar kategorinamnet
+	
+		
 		imgViewer.list.imgUrl = [];//Nollställning av listor
 		imgViewer.list.imgCaption = [];
 		// Loopa igenom alla bilder och lägg in dem i listorna
 		for (let i = 0; i < data.length; i++) {
 			imgViewer.list.imgUrl[i] = data[i].url;//Lägger in bilderna i listan
 			imgViewer.list.imgCaption[i] = data[i].caption;//Lägger in bildtexterna i listan
-			imgViewer.titleElem[i] = temp.category;//Lägger in kategorin i rubriken
+			
 
 		}
 		this.imgIx = 0; //Nollställer bildindex
