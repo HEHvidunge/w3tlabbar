@@ -23,7 +23,7 @@
                 "finish": "20230812"
             },
             "rating": 4,
-            "coverurl": "img/arabconquest.jpg"
+            "coverurl": "img/arabconquests.jpg"
         },
         {
             "author": "William J. Bernstein",
@@ -60,42 +60,6 @@
             },
             "rating": 5,
             "coverurl": "img/whodares.jpg"
-        },
-        {
-            "author": "Cat Jarman",
-            "title": "River Kings: A New History of Vikings from Scandinavia to the Silk Roads",
-            "year": "2022",
-            "publisher": "HarperCollins",
-            "reading": {
-                "start": "20230801",
-                "finish": "20230808"
-            },
-            "rating": 3,
-            "coverurl": "img/riverkings.jpg"
-        },
-        {
-            "author": "Hugh Kennedy",
-            "title": "The Great Arab Conquests How the Spread of Islam Changed",
-            "year": "2008",
-            "publisher": "Phoenix",
-            "reading": {
-                "start": "20230808",
-                "finish": "20230812"
-            },
-            "rating": 4,
-            "coverurl": "img/arabconquests.jpg"
-        },
-        {
-            "author": "William J. Bernstein",
-            "title": "A Splendid Exchange: How Trade Shaped the World",
-            "year": "2008",
-            "publisher": "Atlantic Monthly Press",
-            "reading": {
-                "start": "20230812",
-                "finish": "20230816"
-            },
-            "rating": 3,
-            "coverurl": "img/splendidexchange.jpg"
         }
     ]
 }

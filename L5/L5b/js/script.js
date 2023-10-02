@@ -1,13 +1,13 @@
-//-------Constructor------
+//-------Constructorfunktion------
 class BookList {
 
     constructor() {
-        this.result = document.getElementById("result");
-       
+        this.result = document.getElementById("result");//Referens till utskriftsfältet
+
     }
-    //----Metoder-----
+
+    //----Metod för att hämta data från JSON-fil-----
     requestData(file) {
-        alert("requestData");
         let request = new XMLHttpRequest(); // Object för Ajax-anropet
         request.open("GET", file, true);
         request.send(null); // Skicka begäran till servern
@@ -17,42 +17,41 @@ class BookList {
                 else window.alert("Den begärda resursen fanns inte.");//Felmeddelande om filen inte finns
         }
     };
-    // Metod för att tolka XML-koden och lägga in innehållet i variablerna för bilderna i bildspelet
+    // Metod för att tolka JSON-koden och skriva ut resultatet
     getData(JSONText) {
-        alert("getData");
+        //alert("getData");
         let data = JSON.parse(JSONText).books;//Hämtar data från JSON-filen
         let temp = JSON.parse(JSONText);
-        bookList.month = temp.month;//Hämtar kategorinamnet	
-        console.log(bookList.month);
-        console.log(data.length);
-        console.log(bookList.length);
-        let HTMLcode = "<h3> " + bookList.month + "</h3>";
-
+        bookList.month = temp.month;//Hämtar ut månad från JSON-filen
+        //console.log(bookList.month);
+        // console.log(data.length);
+        //console.log(bookList.length);
+        let HTMLcode = "<h3> " + bookList.month + "</h3>";//Rubrik med månad
+        //Information samlas ihop och formatteras för utskrift
         for (let i = 0; i < data.length; i++) {
-            HTMLcode += "<p> <strong>" + "Författare: "+ data[i].author + "</strong> </p>";
-            HTMLcode += "<p <strong>" + "Titel: " + data[i].title + "</strong> </p>";
-            HTMLcode += "<p>" + "År: " + data[i].year + "</p>";
-            HTMLcode += "<p>" + "Förläggare: " + data[i].publisher + "</p>";
-            HTMLcode += "<p>" + "Startat läsa: " + data[i].reading.start + "</p>";
-            HTMLcode += "<p>" + "Slutat läsa: " + data[i].reading.finish + "</p>";
-            HTMLcode += "<p>" + "Bedömning: " + parseFloat(data[i].rating) + "</p>";
-            HTMLcode += "<img src="+data[i].coverurl+" alt='bookcover' > <hr> <br>";
+            HTMLcode += "<p> <strong>" + "Författare: " + data[i].author + "</strong> </p>";//Författarnamn
+            HTMLcode += "<p <strong>" + "Titel: " + data[i].title + "</strong> </p>";//Boktitel
+            HTMLcode += "<p>" + "År: " + data[i].year + "</p>";//Utgivningsår
+            HTMLcode += "<p>" + "Förläggare: " + data[i].publisher + "</p>";//Förläggare
+            HTMLcode += "<p>" + "Startat läsa: " + data[i].reading.start + "</p>";//Tidpunkt för start av läsning
+            HTMLcode += "<p>" + "Slutat läsa: " + data[i].reading.finish + "</p>";//Tidpunkt för slut av läsning
+            HTMLcode += "<p>" + "Bedömning: " + parseFloat(data[i].rating) + "</p>";//Bedömning av boken
+            HTMLcode += "<img src=" + data[i].coverurl + " alt='bookcover' > <hr> <br>"; //Länk till bokomslag
 
 
-            alert(HTMLcode);
-            
+            // alert(HTMLcode);
+
         }
-        bookList.result.innerHTML = HTMLcode;
+        bookList.result.innerHTML = HTMLcode;//Texten skickas för utskrift
 
-    }; // Slut
-}
+    }; // Slut på metoderna
+}//Slut på objektet
 
 
 //---Initiering------
 function init() {
-    bookList = new BookList();
-    btn = document.getElementById("showBooks");
-    btn.addEventListener("click", bookList.requestData("json/august.json"));
+    bookList = new BookList();//Initierar instans av objektet
+    document.getElementById("showBooks").addEventListener("click", bookList.requestData("json/august.json"));//Initierar knapp
 
 }
 window.addEventListener("load", init);
