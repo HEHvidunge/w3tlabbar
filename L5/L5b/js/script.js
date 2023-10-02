@@ -29,14 +29,16 @@ class BookList {
         let HTMLcode = "<h3> " + bookList.month + "</h3>";//Rubrik med månad
         //Information samlas ihop och formatteras för utskrift
         for (let i = 0; i < data.length; i++) {
+            HTMLcode += "<img src=" + data[i].coverurl + " alt='bookcover' > "; //Länk till bokomslag
+            HTMLcode += "<p> <strong>" + "Titel: " + data[i].title + "</strong> </p>";//Boktitel
             HTMLcode += "<p> <strong>" + "Författare: " + data[i].author + "</strong> </p>";//Författarnamn
-            HTMLcode += "<p <strong>" + "Titel: " + data[i].title + "</strong> </p>";//Boktitel
+           
             HTMLcode += "<p>" + "År: " + data[i].year + "</p>";//Utgivningsår
             HTMLcode += "<p>" + "Förläggare: " + data[i].publisher + "</p>";//Förläggare
             HTMLcode += "<p>" + "Startat läsa: " + data[i].reading.start + "</p>";//Tidpunkt för start av läsning
             HTMLcode += "<p>" + "Slutat läsa: " + data[i].reading.finish + "</p>";//Tidpunkt för slut av läsning
-            HTMLcode += "<p>" + "Bedömning: " + parseFloat(data[i].rating) + "</p>";//Bedömning av boken
-            HTMLcode += "<img src=" + data[i].coverurl + " alt='bookcover' > <hr> <br>"; //Länk till bokomslag
+            HTMLcode += "<p>" + "Bedömning: " + parseFloat(data[i].rating) + "</p> <hr> <br>";//Bedömning av boken
+
 
 
             // alert(HTMLcode);

@@ -14,6 +14,10 @@ form input[type=button] {
     padding: 6px;
     margin-left: 2em;
     line-height: 1.5em;
+    
+}
+#result div img{
+    max-width: 100%;
 }
 #result div:nth-of-type(odd) {
     background-color: #FDA;
