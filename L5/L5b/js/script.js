@@ -53,7 +53,7 @@ class BookList {
 //---Initiering------
 function init() {
     bookList = new BookList();//Initierar instans av objektet
-    document.getElementById("showBooks").addEventListener("click", bookList.requestData("json/august.json"));//Initierar knapp
+    document.getElementById("showBooks").addEventListener("click", function(){bookList.requestData("json/august.json")});//Initierar knapp
 
 }
 window.addEventListener("load", init);
