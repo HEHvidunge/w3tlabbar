@@ -1,5 +1,6 @@
 // Globala variabler
 var myApiKey = "774cf291094a92f1d652fd0cfb083afe";	// Ersätt DIN-API-KEY med din egen API key
+var mySecret="9d599f43d755e06f";
 var flickrImgElem;		// Referens till element där bilderna ska visas
 var formElem;			// Referens till sökformuläret
 var tags;				// Taggar som anges i sökformuläret
@@ -125,11 +126,12 @@ function requestLocation(id) {
 	function requestImgsByLocation(lat, lon) {
 
 		let request = new XMLHttpRequest(); // Object för Ajax-anropet
-		request.open("GET", "https://api.flickr.com/services/rest/?api_key=" + myApiKey + "&method=flickr.photos.geo.photosForLocation&lat=" + lat + "&lon=" + lon + "&per_page=5&format=json&nojsoncallback=1", true);
+		request.open("GET", "https://api.flickr.com/services/rest/?api_key=" + myApiKey + "&method=flickr.photos.search&lat=" + lat + "&lon=" + lon + "&per_page=5&format=json&nojsoncallback=1", true);
 		request.send(null); // Skicka begäran till servern
 		request.onreadystatechange = function () { // Funktion för att avläsa status i kommunikationen
 			if (request.readyState == 4)
-				if (request.status == 200) showMoreImgs(request.responseText);
+				if (request.status == 200) {showMoreImgs(request.responseText);
+				console.log(request.responseText);}
 				else flickrImgElem.innerHTML = "Den begärda resursen finns inte.";
 		};
 	};
@@ -140,6 +142,7 @@ function showMoreImgs(response) {
 
 	response = JSON.parse(response);
 	let htmlCode = "";
+	console.log(response);
 	for (let i = 0; i < response.photos.photo.length; i++) {
 		let photo = response.photos.photo[i]; // Ett foto i svaret
 		let imgUrl = "https://live.staticflickr.com/" + photo.server + "/" +
