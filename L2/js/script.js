@@ -40,7 +40,7 @@ function selectCourses() {
 		default: file = "courselist1";
 			break;
 	}
-	requestCourseData(file, subjectName);//Filnamn och vält ämne förs vidare till nästa funktion
+	requestCourseData(file);//Filnamn och vält ämne förs vidare till nästa funktion
 
 } // End selectCourses
 
@@ -63,7 +63,7 @@ function requestSubjectData(name) { // filname är namnet på taggen för de dat
 }
 
 //requestCourseData
-function requestCourseData(filename, subject) { // filname är namnet på taggen för de data som ska hämtas subject är valt ämne
+function requestCourseData(filename) { // filname är namnet på taggen för de data som ska hämtas subject är valt ämne
 
 	let request = new XMLHttpRequest(); // Object för Ajax-anropet
 	request.open("GET", "xml/" + filename + ".xml", true);
@@ -71,12 +71,12 @@ function requestCourseData(filename, subject) { // filname är namnet på taggen
 	request.onreadystatechange = function () { // Funktion för att avläsa status i kommunikationen
 		if (request.readyState == 4) // readyState 4 --> kommunikationen är klar
 			//Nästa funktion anropas. Idata och valt ämnesområde skickas vidare
-			if (request.status == 200) getCourseData(request.responseXML, subject); // status 200 
+			if (request.status == 200) getCourseData(request.responseXML); // status 200 
 			else courseListElem.innerHTML = "Den begärda resursen finns inte.";
 	}
 
 }
-
+////I getSubjectData skriver du ut en textsträng då ämnet inte finns. Om änet inte finns i XML-filen, ska du istället skriva ut innehållet som finns i elementet not_awailable.
 //getSubjectData
 function getSubjectData(XMLcode, compareName) {//compareName är lokal variabel för att välja ut rätt ämne
 	let subjectElems = XMLcode.getElementsByTagName("subject"); // Array skapas av data under taggen "subject"
@@ -103,14 +103,19 @@ function getSubjectData(XMLcode, compareName) {//compareName är lokal variabel 
 // End getSubjectData
 
 //getCourseData
-function getCourseData(XMLcode, subject) //Indata och valt ämne tas emot
+
+function getCourseData(XMLcode,) //Indata och valt ämne tas emot
 {
+	let subject=XMLcode.getElementsByTagName("subject")[0].firstChild.data
 	let courseElems = XMLcode.getElementsByTagName("course"); //
 	let HTMLcode = "<h3>" + subject + "</h3>";// Textsträng med ny HTML-kod som skapas. Inleds med rubrik.
+	console.log(XMLcode);
+	console.log(XMLcode.getElementsByTagName("subject")[0].firstChild.data);
+	console.log(courseElems);
 
 	for (let i = 0; i < courseElems.length; i++) {
-		let codeElem = courseElems[i].getElementsByTagName("code")[0].firstChild.data;//Kurskod
-		let titleElem = courseElems[i].getElementsByTagName("title")[0].firstChild.data;//Kursnamn
+		let code = courseElems[i].getElementsByTagName("code")[0].firstChild.data;//Kurskod
+		let title = courseElems[i].getElementsByTagName("title")[0].firstChild.data;//Kursnamn
 		let creditsElem = courseElems[i].getElementsByTagName("credits")[0].firstChild.data;//Kurspoäng
 		//Hantering av "missing data" i datafil
 		//Villkorssatser accepterar tydlingen tilldelning. Denna sker därför innan
@@ -119,7 +124,7 @@ function getCourseData(XMLcode, subject) //Indata och valt ämne tas emot
 
 		let moreinfoElem = courseElems[i].getElementsByTagName("moreinfo")[0].getAttribute("url");//Länk till mer info
 		//Utskriftsrad skapas med länk till mer info
-		HTMLcode +="<p>"+ codeElem + ", <a hrf=" + moreinfoElem + "> " + titleElem + "</a>, " + creditsElem;
+		HTMLcode +="<p>"+ code + ", <a href=" + moreinfoElem + "> " + title + "</a>, " + creditsElem;
 		//Om uppgift om kontaktperson finns adderas denna information till utskriftsraden
 		if (courseElems[i].getElementsByTagName("name").length > 0) { HTMLcode += ", Kontaktperson: " + nameElem }
 		HTMLcode += "</p>";
