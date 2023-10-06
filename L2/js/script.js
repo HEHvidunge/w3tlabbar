@@ -56,6 +56,7 @@ function requestSubjectData(name) { // filname är namnet på taggen för de dat
 
 			if (request.status == 200) getSubjectData(request.responseXML, name); // status 200 
 			else subjectInfoElem.innerHTML = "Den begärda resursen finns inte.";
+			
 
 
 	}
@@ -72,7 +73,8 @@ function requestCourseData(filename) { // filname är namnet på taggen för de 
 		if (request.readyState == 4) // readyState 4 --> kommunikationen är klar
 			//Nästa funktion anropas. Idata och valt ämnesområde skickas vidare
 			if (request.status == 200) getCourseData(request.responseXML); // status 200 
-			else courseListElem.innerHTML = "Den begärda resursen finns inte.";
+			else console.log(request.status);
+			//else courseListElem.innerHTML = "Den begärda resursen finns inte.";
 	}
 
 }
@@ -80,10 +82,13 @@ function requestCourseData(filename) { // filname är namnet på taggen för de 
 //getSubjectData
 function getSubjectData(XMLcode, compareName) {//compareName är lokal variabel för att välja ut rätt ämne
 	let subjectElems = XMLcode.getElementsByTagName("subject"); // Array skapas av data under taggen "subject"
+	let noInfoElem=XMLcode.getElementsByTagName("not_awailable")[0];
+	console.log(noInfoElem.innerHTML);
 	let HTMLcode = ""; // Textsträng med ny HTML-kod som skapas
 	for (let i = 0; i < subjectElems.length; i++) {
 		let nameElem = subjectElems[i].getElementsByTagName("name")[0];//Array skapas för data under nametaggen
-		let infoElem = subjectElems[i].getElementsByTagName("info")[0];//Artray skapas för data under infotaggen
+		let infoElem = subjectElems[i].getElementsByTagName("info")[0];//Array skapas för data under infotaggen
+		
 		//
 		//Om aktuellt ämnesnamn i loopen stämmer med önskat ämne skrivs resultatet ut
 		//
@@ -96,7 +101,10 @@ function getSubjectData(XMLcode, compareName) {//compareName är lokal variabel 
 
 			break; //Loopen bryts när efterfrågat ämne hittats
 		}
-		else subjectInfoElem.innerHTML = "Den begärda resursen finns inte.";//Om loopen gåtts igenom utan att ämnet hittats skrivs meddelande ut
+		
+		else subjectInfoElem.innerHTML = noInfoElem.innerHTML;
+		
+		//Om loopen gåtts igenom utan att ämnet hittats skrivs meddelande ut
 
 	}
 }
