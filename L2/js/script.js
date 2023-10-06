@@ -109,9 +109,7 @@ function getCourseData(XMLcode,) //Indata och valt ämne tas emot
 	let subject=XMLcode.getElementsByTagName("subject")[0].firstChild.data
 	let courseElems = XMLcode.getElementsByTagName("course"); //
 	let HTMLcode = "<h3>" + subject + "</h3>";// Textsträng med ny HTML-kod som skapas. Inleds med rubrik.
-	console.log(XMLcode);
-	console.log(XMLcode.getElementsByTagName("subject")[0].firstChild.data);
-	console.log(courseElems);
+	
 
 	for (let i = 0; i < courseElems.length; i++) {
 		let code = courseElems[i].getElementsByTagName("code")[0].firstChild.data;//Kurskod
