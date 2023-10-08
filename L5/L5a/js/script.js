@@ -1,4 +1,4 @@
-// ----- Constructorfunktion -----
+// ----- Constructorfunktion för objektet ImageViewer -----
 class ImageViewer {
 	constructor(id) {
 		this.titleElem = document.querySelector("#" + id + " h3"),//Referens till elementet för rubriken
@@ -29,11 +29,10 @@ class ImageViewer {
 	// Funktion för att tolka XML-koden och lägga in innehållet i variablerna för bilderna i bildspelet
 	getImages(JSONText) {
 
-
 		let data = JSON.parse(JSONText).image;//Hämtar data från JSON-filen
-		let temp = JSON.parse(JSONText);
+		let temp = JSON.parse(JSONText);//lokal variabel för att konvertera JSON-texten
 		imgViewer.category = temp.category;//Hämtar kategorinamnet	
-		console.log(imgViewer.category);
+		
 
 		this.titleElem.innerHTML = imgViewer.category;//Visar kategorinamnet
 
@@ -95,7 +94,7 @@ class ImageViewer {
 }
 // ----- Slut Constructorfunktion -----
 
-//-------Initiering av händelsehanterare
+//-------Initiering och skapande av av händelsehanterare
 function init() {
 	imgViewer = new ImageViewer("imgViewer");//Initiering av class
 	//Åberopar menyn och sparar valt alternativ

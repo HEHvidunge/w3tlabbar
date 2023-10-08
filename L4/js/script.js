@@ -1,23 +1,22 @@
-// ----- Constructorfunktion -----
+// ----- Constructorfunktion för objektet ImageViewer-----
 class ImageViewer {
 	constructor(id) {
-		this.titleElem = document.querySelector("#" + id + " h3"),
-			//console.log(this.titleElem);
-			console.log(id);
+		this.titleElem = document.querySelector("#" + id + " h3"),//Skapar referens för rubrik
+						
 		this.imgElem = document.querySelector("#" + id + " img"),
 			this.captionElem = document.querySelector("#" + id + " p"),
-			this.category = "";
-		//this.category= document.querySelector("#" + id + " h3")
+			this.category = ""; //Skapar referns för bild
+		
 		this.list = {
 			imgUrl: ["img/blank.png"],
-			imgCaption: [""]
+			imgCaption: [""]//Inledande värden
 		},
 			this.imgIx = 0,
 			this.timer = null
 
 	};
 	//------Metoder kopplade till objektet ImageViewer------
-	// Gör ett Ajax-anrop för att läsa in begärd fil
+	// Ajax-anrop för att läsa in begärd fil
 	requestImages(file) {
 		//console.log(file);
 		let request = new XMLHttpRequest(); // Object för Ajax-anropet
@@ -34,11 +33,10 @@ class ImageViewer {
 		let urlElems = XMLcode.getElementsByTagName("url"); // Alla url-element
 		let captionElems = XMLcode.getElementsByTagName("caption"); // Alla caption-element
 	
-		console.log("category",XMLcode.getElementsByTagName("category")[0].firstChild.data);
-
+		
 		imgViewer.category = XMLcode.getElementsByTagName("category")[0].firstChild.data;//Hämtar kategorinamnet
 		this.titleElem.innerHTML = imgViewer.category;//Visar kategorinamnet
-		console.log("imgViewer",imgViewer.category);
+		
 		imgViewer.list.imgUrl = [];//Tömmer bildlistan
 		imgViewer.list.imgCaption = [];//Tömmer bildtextlistan
 		for (let i = 0; i < urlElems.length; i++) {
@@ -46,7 +44,7 @@ class ImageViewer {
 			imgViewer.list.imgCaption[i] = (captionElems[i].firstChild.data);
 
 		}
-		this.imgIx = 0;
+		this.imgIx = 0;//Nollställer bildindex
 		
 		this.showImage(); // Anropar funktion för att visa första bilden
 	}; // Slut
@@ -91,20 +89,22 @@ class ImageViewer {
 }
 // ----- Slut Constructorfunktion -----
 
-//-------Initiering av händelsehanterare
+//-------Initiering och skapande av händelsehanterare
 function init() {
-	imgViewer = new ImageViewer("imgViewer");//Initiera objektet
+	imgViewer = new ImageViewer("imgViewer");//Initierar objektet
+
 	//Skapar händelsehanterar för menyn
 	document.querySelector("#categoryMenu").addEventListener("change",
 		function () {
 			imgViewer.requestImages("xml/images" + this.selectedIndex + ".xml");
-			this.selectedIndex = 0;
+			this.selectedIndex = 0;//Nollställning av index
 
 		}
 	);
 	//Skapar "piltangenter"
 	document.querySelector("#prevBtn").addEventListener("click", function () { imgViewer.prevImage(); }); //Bakåtpil
 	document.querySelector("#nextBtn").addEventListener("click", function () { imgViewer.nextImage() });//Frammåtpil
+
 	//---Slut på initiering av händelsehanterare
 
 
