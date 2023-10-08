@@ -10,7 +10,7 @@ const markerData = [	// Data för markeringar som hör till knapparna
 	{ position: { lat: 57.63403169012476, lng: 18.280900537962392 }, title: "Färjeterminalen" }
 ];
 var mapLocationElem;			// Element för utskrift av koordinater
-var myApiKey = "DIN-API-KEY";	// Ersätt DIN-API-KEY med din egen Flickr API key
+var myApiKey = "774cf291094a92f1d652fd0cfb083afe";	// Ersätt DIN-API-KEY med din egen Flickr API key
 var flickrImgElem;				// Referens till element där bilderna ska visas
 
 // Initiering av programmet
@@ -65,10 +65,11 @@ function newUserMarker(e) {
 	userMarker.setMap(myMap);
 	let lat = e.latLng.lat();
 	let lng = e.latLng.lng();
+
+	let htmlCode = "Latitud: " + lat + " Longitud: " + lng;
 	
-	let htmlCode="Latitud: "+lat+" Longitud: "+lng;
-	console.log(htmlCode);
-	mapLocationElem.innerHTML=htmlCode;
+	mapLocationElem.innerHTML = htmlCode;
+	requestImgsByLocation(lat,lng); //Anrop av funktion för att söka fram och visa bilder
 } // End newUserMarker
 
 // Visa marker för den adressknapp som användaren klickat på
@@ -96,10 +97,32 @@ function hideMarkers() {
 
 // Ajax-begäran av nya bilder
 function requestImgsByLocation(lat, lon) {
-
-} // End requestImgsByLocation
+	let request = new XMLHttpRequest(); // Object för Ajax-anropet
+	request.open("GET", "https://api.flickr.com/services/rest/?api_key=" + myApiKey + "&method=flickr.photos.search&lat=" + lat + "&lon=" + lon + "&per_page=3&format=json&nojsoncallback=1", true);
+	request.send(null); // Skicka begäran till servern
+	request.onreadystatechange = function () { // Funktion för att avläsa status i kommunikationen
+		if (request.readyState == 4)
+			if (request.status == 200) {
+				showMoreImgs(request.responseText);
+			
+			}
+			else flickrImgElem.innerHTML = "Den begärda resursen finns inte.";
+	};
+};
+// End requestImgsByLocation
 
 // Tolka svaret och visa upp bilderna.
 function showMoreImgs(response) {
 
-} // End showMoreImgs
+	response = JSON.parse(response);
+	let htmlCode = "";
+	
+	for (let i = 0; i < response.photos.photo.length; i++) {
+		let photo = response.photos.photo[i]; // Ett foto i svaret
+		let imgUrl = "https://live.staticflickr.com/" + photo.server + "/" +
+			photo.id + "_" + photo.secret + "_s.jpg"; // Adress till en bild
+		let newElem = document.createElement;
+		htmlCode += "<img src=" + imgUrl + ">";
+	}
+	flickrImgElem.innerHTML = htmlCode;//Bilderna läggs ut under kartan
+}
