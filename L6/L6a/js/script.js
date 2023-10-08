@@ -1,6 +1,6 @@
 // Globala variabler
 var myApiKey = "774cf291094a92f1d652fd0cfb083afe";	// Ersätt DIN-API-KEY med din egen API key
-var mySecret="9d599f43d755e06f";
+var mySecret = "9d599f43d755e06f";
 var flickrImgElem;		// Referens till element där bilderna ska visas
 var formElem;			// Referens till sökformuläret
 var tags;				// Taggar som anges i sökformuläret
@@ -91,7 +91,7 @@ function enlargeImg() {
 	largeImgElem.caption.innerHTML = photo.title;
 	// Tillägg i lab 6:
 	requestLocation(photo.id);
-	console.log(photo.id);
+
 } // End enlargeImg
 
 // ---------- Följande är tillägg för lab6 ----------
@@ -102,7 +102,7 @@ function requestLocation(id) {
 	request.open("GET", "https://api.flickr.com/services/rest/?api_key=" + myApiKey + "&method=flickr.photos.geo.getLocation&photo_id=" + id + "&format=json&nojsoncallback=1", true);
 
 	request.send(null); // Skicka begäran till servern
-	console.log(myApiKey, id);
+
 	request.onreadystatechange = function () {  //Funktion för att avläsa status i kommunikationen
 		if (request.readyState == 4)
 			if (request.status == 200) showLocation(request.responseText);
@@ -113,13 +113,14 @@ function requestLocation(id) {
 	// Visa koordinater
 	function showLocation(response) {
 		response = JSON.parse(response);
-		console.log(response);
+		//Packar upp bildens geodata till lokala variabler
 		let geoData = response.photo;
 		let lat = geoData.location.latitude;
 		let long = geoData.location.longitude;
-		console.log(lat, long);
+
 		imgLocationElem.innerHTML = "<p> Latitude: " + lat + " Longitude: " + long + "</p>";
-		requestImgsByLocation(lat,long);
+		initMap(lat, long);//Anropar kartfunktionen
+		requestImgsByLocation(lat, long); //Skriver ut bildens geodata
 	} // End showLocation
 
 	// Ajax-begäran av nya bilder
@@ -130,8 +131,10 @@ function requestLocation(id) {
 		request.send(null); // Skicka begäran till servern
 		request.onreadystatechange = function () { // Funktion för att avläsa status i kommunikationen
 			if (request.readyState == 4)
-				if (request.status == 200) {showMoreImgs(request.responseText);
-				console.log(request.responseText);}
+				if (request.status == 200) {
+					showMoreImgs(request.responseText);
+					//console.log(request.responseText);
+				}
 				else flickrImgElem.innerHTML = "Den begärda resursen finns inte.";
 		};
 	};
@@ -150,13 +153,31 @@ function showMoreImgs(response) {
 		let newElem = document.createElement
 		htmlCode += "<img src=" + imgUrl + ">";
 	}
-	moreImgElem.innerHTML=htmlCode;
-} 
+	moreImgElem.innerHTML = htmlCode;
+}
 // End showMoreImgs
 
 // ---------- Karta från Google Maps ---------- Extramerit
 
 // Skapa en karta och markeringar
-//function initMap(lat,lon) {}
-	
- // End initMap
+//function initMap
+function initMap(lat, lon) {
+	let markerData = { position: { lat: parseFloat(lat), lng: parseFloat(lon) }, title: "" };
+
+	myMap = new google.maps.Map(
+		document.getElementById('map'),
+		{
+			center: { lat: parseFloat(lat), lng: parseFloat(lon) },//centrerar kartan enligt bildens geodata
+			zoom: 6,//zoom sätts till 6
+			styles: [
+				{ featureType: "poi", stylers: [{ visibility: "off" }] },  // No points of interest.
+				{ featureType: "transit.station", stylers: [{ visibility: "off" }] }  // No bus stations, etc.
+			]
+		}
+	);
+
+
+	let marker = new google.maps.Marker(markerData); // Skapar objekt för markering
+	marker.setMap(myMap); //Gör markeringen
+}
+// End initMap
