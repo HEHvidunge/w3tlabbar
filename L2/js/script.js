@@ -4,10 +4,10 @@ var subjectInfoElem, courseListElem;	// Referenser till div-elementen där inlä
 
 // Initiering av globala variabler och händelsehanterare
 function init() {
-	subjectInfoElem = document.getElementById("subjectInfo");
-	courseListElem = document.getElementById("courseList");
-	document.getElementById("subjectMenu1").addEventListener("change", selectSubject);
-	document.getElementById("subjectMenu2").addEventListener("change", selectCourses);
+	subjectInfoElem = document.getElementById("subjectInfo");//Referens till område för utskrift av ämnesinfo
+	courseListElem = document.getElementById("courseList");//Referens till område för utskrift av kursinfo
+	document.getElementById("subjectMenu1").addEventListener("change", selectSubject);//Initierning av meny för ämnesval
+	document.getElementById("subjectMenu2").addEventListener("change", selectCourses);//Initiering av meny för kursval
 
 } // End init
 window.addEventListener("load", init); // init aktiveras då sidan är inladdad
@@ -17,7 +17,7 @@ window.addEventListener("load", init); // init aktiveras då sidan är inladdad
 // Avläs menyn för val av ämne
 function selectSubject() {
 	let subject = this.value; //läs in valt ämne
-	this.selectedIndex=0;
+	this.selectedIndex = 0;//Återställ menyn
 	requestSubjectData(subject);
 } // End selectSubject
 
@@ -28,7 +28,7 @@ function selectSubject() {
 // Avläs menyn för val av ämne för kurser
 function selectCourses() {
 	let subjectName = this.value; //läs in valt ämne
-	this.selectedIndex=0;
+	this.selectedIndex = 0;//Återställ menyn
 	let file = "";
 	//Det valda ämnet översätts till motsvarande namn på datafil
 	switch (subjectName) {
@@ -58,8 +58,6 @@ function requestSubjectData(name) { // filname är namnet på taggen för de dat
 			if (request.status == 200) getSubjectData(request.responseXML, name); // status 200 
 			else subjectInfoElem.innerHTML = "Den begärda resursen finns inte.";
 
-
-
 	}
 
 }
@@ -79,11 +77,10 @@ function requestCourseData(filename) { // filname är namnet på taggen för de 
 	}
 
 }
-////I getSubjectData skriver du ut en textsträng då ämnet inte finns. Om änet inte finns i XML-filen, ska du istället skriva ut innehållet som finns i elementet not_awailable.
 //getSubjectData
-function getSubjectData(XMLcode, compareName) {//compareName är lokal variabel för att välja ut rätt ämne
+function getSubjectData(XMLcode, compareName) {//compareName är anger vilket ämne som valts
 	let subjectElems = XMLcode.getElementsByTagName("subject"); // Array skapas av data under taggen "subject"
-	let noInfoElem = XMLcode.getElementsByTagName("not_awailable")[0];
+	let noInfoElem = XMLcode.getElementsByTagName("not_awailable")[0];//Innehållet i "not_awailable" hämtas
 	console.log(noInfoElem.innerHTML);
 	let HTMLcode = ""; // Textsträng med ny HTML-kod som skapas
 	for (let i = 0; i < subjectElems.length; i++) {
@@ -91,7 +88,8 @@ function getSubjectData(XMLcode, compareName) {//compareName är lokal variabel 
 		let infoElem = subjectElems[i].getElementsByTagName("info")[0];//Array skapas för data under infotaggen
 
 		//
-		//Om aktuellt ämnesnamn i loopen stämmer med önskat ämne skrivs resultatet ut
+		//Om aktuellt ämnesnamn i loopen stämmer med önskat ämne skrivs resultatet ut.
+		//Om information inte finns skrivs texten i noInfoElem ut.
 		//
 		if (nameElem.firstChild.data == compareName) {
 			HTMLcode += "<h3>" + "Ämne" + "</h3>";
@@ -103,9 +101,7 @@ function getSubjectData(XMLcode, compareName) {//compareName är lokal variabel 
 			break; //Loopen bryts när efterfrågat ämne hittats
 		}
 
-		else subjectInfoElem.innerHTML = noInfoElem.innerHTML;
-
-		//Om loopen gåtts igenom utan att ämnet hittats skrivs meddelande ut
+		else subjectInfoElem.innerHTML = noInfoElem.innerHTML;//Om loopen gåtts igenom utan att ämnet hittats skrivs detta ut
 
 	}
 }
@@ -124,12 +120,13 @@ function getCourseData(XMLcode,) //Indata och valt ämne tas emot
 		let code = courseElems[i].getElementsByTagName("code")[0].firstChild.data;//Kurskod
 		let title = courseElems[i].getElementsByTagName("title")[0].firstChild.data;//Kursnamn
 		let creditsElem = courseElems[i].getElementsByTagName("credits")[0].firstChild.data;//Kurspoäng
+
 		//Hantering av "missing data" i datafil
-		//Villkorssatser accepterar tydlingen tilldelning. Denna sker därför innan
 		let nameElem = "";
 		if (courseElems[i].getElementsByTagName("name").length > 0) { nameElem = courseElems[i].getElementsByTagName("name")[0].firstChild.data };//Kontaktuppgift namn
 
-		let moreinfoElem = courseElems[i].getElementsByTagName("moreinfo")[0].getAttribute("url");//Länk till mer info
+		let moreinfoElem = courseElems[i].getElementsByTagName("moreinfo")[0].getAttribute("url");//Länk till mer info hämtas och läggs in
+
 		//Utskriftsrad skapas med länk till mer info
 		HTMLcode += "<p>" + code + ", <a href=" + moreinfoElem + "> " + title + "</a>, " + creditsElem;
 		//Om uppgift om kontaktperson finns adderas denna information till utskriftsraden
