@@ -2,16 +2,16 @@
 class ImageViewer {
 	constructor(id) {
 		this.titleElem = document.querySelector("#" + id + " h3"),//Skapar referens för rubrik
-						
-		this.imgElem = document.querySelector("#" + id + " img"),
-			this.captionElem = document.querySelector("#" + id + " p"),
-			this.category = ""; //Skapar referns för bild
-		
+
+			this.imgElem = document.querySelector("#" + id + " img"),//Skapar referns för bild
+			this.captionElem = document.querySelector("#" + id + " p"),//Skapar referns för bildtext
+			this.category = ""; //Inleder mot tom kategori
+		//Bildreferenser och bildtexter lagras här
 		this.list = {
-			imgUrl: ["img/blank.png"],
-			imgCaption: [""]//Inledande värden
-		},
-			this.imgIx = 0,
+			imgUrl: ["img/blank.png"],//Inledande värde
+			imgCaption: [""]//Inledande värde
+		};
+		this.imgIx = 0,
 			this.timer = null
 
 	};
@@ -30,46 +30,52 @@ class ImageViewer {
 	};
 	// Funktion för att tolka XML-koden och lägga in innehållet i variablerna för bilderna i bildspelet
 	getImages(XMLcode) { // Parametern XMLcode är hela den inlästa XML-koden
+		//Inläsning av all bild och bildtextdata som ska bli nya instanser av objektets egenskaper
 		let urlElems = XMLcode.getElementsByTagName("url"); // Alla url-element
 		let captionElems = XMLcode.getElementsByTagName("caption"); // Alla caption-element
-	
-		
+
+		//Inläsning av data som är gemensam för alla instanser av objektet
 		imgViewer.category = XMLcode.getElementsByTagName("category")[0].firstChild.data;//Hämtar kategorinamnet
-		this.titleElem.innerHTML = imgViewer.category;//Visar kategorinamnet
-		
-		imgViewer.list.imgUrl = [];//Tömmer bildlistan
-		imgViewer.list.imgCaption = [];//Tömmer bildtextlistan
+		this.titleElem.innerHTML = imgViewer.category;//Referens för visning av kategorinamnet
+console.log(this.titleElem.innerHTML);
+
+		//imgViewer.list.imgUrl = [];//Tömmer bildlistan
+		//imgViewer.list.imgCaption = [];//Tömmer bildtextlistan
 		for (let i = 0; i < urlElems.length; i++) {
-			imgViewer.list.imgUrl[i] = (urlElems[i].firstChild.data);
-			imgViewer.list.imgCaption[i] = (captionElems[i].firstChild.data);
+			let obj = new ImageViewer(urlElems[i].firstChild.data, captionElems[i].firstChild.data);
+		};
+		imgViewer.push(obj);
+		//imgViewer.list.imgUrl[i] = (urlElems[i].firstChild.data);
+		//imgViewer.list.imgCaption[i] = (captionElems[i].firstChild.data);
+		console.log(this);
+	}
+	this.imgIx = 0,//Nollställer bildindex
 
-		}
-		this.imgIx = 0;//Nollställer bildindex
-		
-		this.showImage(); // Anropar funktion för att visa första bilden
-	}; // Slut
 
-	// Visa bilden med index imgIx
-	showImage() {
+this.showImage; // Anropar funktion för att visa första bilden
+	} // Slut
 
-		this.imgElem.src = this.list.imgUrl[this.imgIx];//Visar bilden
+// Visa bilden med index imgIx
+showImage() {
 
-		this.captionElem.innerHTML = (this.imgIx + 1) + ". " + this.list.imgCaption[this.imgIx]; //Visar bildtexten
-	}; // Slut visa bilden
+	this.imgElem.src = this.list.imgUrl[this.imgIx];//Visar bilden
 
-	// Visa föregående bild
-	prevImage() {
-		if (this.imgIx > 0) this.imgIx--; //Om bildindexet är större än noll backa till föregående
-		else this.imgIx = this.list.imgUrl.length - 1; // Annars gå runt till sista bilden
-		this.showImage();
-	}; // Slut visa föregående bild
+	this.captionElem.innerHTML = (this.imgIx + 1) + ". " + this.list.imgCaption[this.imgIx]; //Visar bildtexten
+}; // Slut visa bilden
 
-	// Visa nästa bild
-	nextImage() {
-		if (this.imgIx < this.list.imgUrl.length - 1) this.imgIx++; //Om aktuell bild inte är den sista stega frammåt
-		else this.imgIx = 0; // Annars gå runt till första bilden
-		this.showImage();
-	}; // Slut visa nästa bild
+// Visa föregående bild
+prevImage() {
+	if (this.imgIx > 0) this.imgIx--; //Om bildindexet är större än noll backa till föregående
+	else this.imgIx = this.list.imgUrl.length - 1; // Annars gå runt till sista bilden
+	this.showImage();
+}; // Slut visa föregående bild
+
+// Visa nästa bild
+nextImage() {
+	if (this.imgIx < this.list.imgUrl.length - 1) this.imgIx++; //Om aktuell bild inte är den sista stega frammåt
+	else this.imgIx = 0; // Annars gå runt till första bilden
+	this.showImage();
+}; // Slut visa nästa bild
 
 	// ----- Extramerit -----
 	/* Ta bort kommentaren kring koden, för att testa funktionaliteten för extrameriten

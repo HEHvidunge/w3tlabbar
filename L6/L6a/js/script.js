@@ -34,16 +34,16 @@ window.addEventListener("load", init);
 // Initiera en ny sökning
 function serchImgs() {
 	tags = formElem.tags.value;
-	pageNr = 1;
+	pageNr = 1;//Nr för första bild
 	requestNewImgs();
 } // End serchImgs
 
 // Ajax-begäran av nya bilder
 function requestNewImgs() {
-	flickrImgElem.innerHTML = "<img src='img/progress.gif' style='border:none;'>";
+	flickrImgElem.innerHTML = "<img src='img/progress.gif' style='border:none;'>";//Bildrad som visas
 	pageNrElem.innerHTML = pageNr;
 	let request = new XMLHttpRequest(); // Object för Ajax-anropet
-	request.open("GET", "https://api.flickr.com/services/rest/?api_key=" + myApiKey + "&method=flickr.photos.search&tags=" + tags + "&per_page=5&page=" + pageNr + "&has_geo=1&format=json&nojsoncallback=1", true);
+	request.open("GET", "https://api.flickr.com/services/rest/?api_key=" + myApiKey + "&method=flickr.photos.search&tags=" + tags + "&per_page=5&page=" + pageNr + "&has_geo=1&format=json&nojsoncallback=1", true);//OBS!! I API anropet taggas att bara filer med geokod ska hämtas
 	request.send(null); // Skicka begäran till servern
 	request.onreadystatechange = function () { // Funktion för att avläsa status i kommunikationen
 		if (request.readyState == 4)
@@ -55,16 +55,16 @@ function requestNewImgs() {
 // Tolka svaret och visa upp bilderna. Välj 5 slumpmässigt ur de 500.
 function newImgs(response) {
 	response = JSON.parse(response);
-	flickrImgElem.innerHTML = "";
+	flickrImgElem.innerHTML = ""; //Tömmer raden av bilder
 	for (let i = 0; i < response.photos.photo.length; i++) {
 		let photo = response.photos.photo[i]; // Ett foto i svaret
 		let imgUrl = "https://live.staticflickr.com/" + photo.server + "/" +
-			photo.id + "_" + photo.secret + "_s.jpg"; // Adress till en bild
+			photo.id + "_" + photo.secret + "_s.jpg"; // Hämtningsadress till en bildfil
 		let newElem = document.createElement("img"); // Nytt img-element
-		newElem.setAttribute("src", imgUrl);
-		newElem.setAttribute("data-photo", JSON.stringify(photo)); // Spara data om fotot
-		newElem.addEventListener("click", enlargeImg);
-		flickrImgElem.appendChild(newElem);
+		newElem.setAttribute("src", imgUrl);//Lägger till source attribut till elementet
+		newElem.setAttribute("data-photo", JSON.stringify(photo)); // Lägger till data-photo attribut 
+		newElem.addEventListener("click", enlargeImg);//Händelsehanterare för stor bild läggs på
+		flickrImgElem.appendChild(newElem);//Lägger till bildadress till raden av bilder
 	} // End for
 } // End newImgs
 
@@ -87,8 +87,8 @@ function enlargeImg() {
 	let photo = JSON.parse(this.getAttribute("data-photo")); // Objekt med data om fotot
 	let imgUrl = "https://live.staticflickr.com/" + photo.server + "/" +
 		photo.id + "_" + photo.secret + "_z.jpg"; // Adress till en bild
-	largeImgElem.img.src = imgUrl;
-	largeImgElem.caption.innerHTML = photo.title;
+	largeImgElem.img.src = imgUrl;//Skriver ut stor bild
+	largeImgElem.caption.innerHTML = photo.title; //Skriver ut bildtext till stor bild
 	// Tillägg i lab 6:
 	requestLocation(photo.id);
 
@@ -114,13 +114,13 @@ function requestLocation(id) {
 	function showLocation(response) {
 		response = JSON.parse(response);
 		//Packar upp bildens geodata till lokala variabler
-		let geoData = response.photo;
-		let lat = geoData.location.latitude;
-		let long = geoData.location.longitude;
+		let geoData = response.photo;//Lokal variabel 
+		let lat = geoData.location.latitude;//Latitud hämtas ur lokal variabel
+		let long = geoData.location.longitude;//Longitud hämtas
 
 		imgLocationElem.innerHTML = "<p> Latitude: " + lat + " Longitude: " + long + "</p>";
 		initMap(lat, long);//Anropar kartfunktionen
-		requestImgsByLocation(lat, long); //Skriver ut bildens geodata
+		requestImgsByLocation(lat, long); //Skriver ut bildens geodata i kartan genom att anropa kartobjektet
 	} // End showLocation
 
 	// Ajax-begäran av nya bilder
@@ -162,7 +162,7 @@ function showMoreImgs(response) {
 // Skapa en karta och markeringar
 //function initMap
 function initMap(lat, lon) {
-	let markerData = { position: { lat: parseFloat(lat), lng: parseFloat(lon) }, title: "" };
+	let markerData = { position: { lat: parseFloat(lat), lng: parseFloat(lon) }, title: "" };//Skapar ny instans av kartan cntrerad med geodata ifrån bilden
 
 	myMap = new google.maps.Map(
 		document.getElementById('map'),
@@ -177,7 +177,7 @@ function initMap(lat, lon) {
 	);
 
 
-	let marker = new google.maps.Marker(markerData); // Skapar objekt för markering
+	let marker = new google.maps.Marker(markerData); // Skapar objekt för markering med hämtade geodata
 	marker.setMap(myMap); //Gör markeringen
 }
 // End initMap

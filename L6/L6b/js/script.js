@@ -9,7 +9,7 @@ const markerData = [	// Data för markeringar som hör till knapparna
 	{ position: { lat: 57.64364191048471, lng: 18.293956253886456 }, title: "Botaniska trädgården" },
 	{ position: { lat: 57.63403169012476, lng: 18.280900537962392 }, title: "Färjeterminalen" }
 ];
-var mapLocationElem;			// Element för utskrift av koordinater
+var mapLocationElem;			// Element för utskrift av koordinater under kartan
 var myApiKey = "774cf291094a92f1d652fd0cfb083afe";	// Ersätt DIN-API-KEY med din egen Flickr API key
 var flickrImgElem;				// Referens till element där bilderna ska visas
 
@@ -25,7 +25,7 @@ function init() {
 
 		let newTextElem = document.createTextNode(markerData[i].title);//Skapa ny textnod med info från markerData-listan
 
-		btnElems[i].setAttribute("data-ix", i);
+		btnElems[i].setAttribute("data-ix", i);//Attribut för att numrera bilder
 		btnElems[i].replaceChild(newTextElem, btnElems[i].childNodes[0]);//Texten i knapparna byts ut
 		btnElems[i].addEventListener("click", showAddrMarker);//Händelsehanterare läggs på knapparna
 
