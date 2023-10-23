@@ -7,12 +7,13 @@ class ImageViewer {
 			this.category = ""; //Inleder mot tom kategori
 		//Bildreferenser och bildtexter lagras här
 		this.list = {
-			imgUrl: ["img/blank.png"],//Inledande värde
-			imgCaption: [""]//Inledande värde
+			imgUrl: "img/blank.png",//Inledande värde
+			imgCaption: ""//Inledande värde
 		};
 		this.imgIx = 0,
 			this.timer = null;
-		console.log(this);
+
+		console.log(this.list);
 	}
 
 	//------Metoder kopplade till objektet ImageViewer------
@@ -42,19 +43,37 @@ class ImageViewer {
 		//imgViewer.list.imgUrl = [];//Tömmer bildlistan
 		//imgViewer.list.imgCaption = [];//Tömmer bildtextlistan
 		for (let i = 0; i < urlElems.length; i++) {
-			//let obj = new ImageViewer(urlElems[i].firstChild.data, captionElems[i].firstChild.data);
-			let obj = new ImageViewer("imgViewer");
-			obj.list.imgUrl.push(urlElems[i].firstChild.data);
-			obj.list.imgCaption.push(captionElems[i].firstChild.data);
-			//obj.push(urlElems[i].firstChild.data,captionElems[i].firstChild.data);
-			console.log(obj);
+
+			//let obj = {
+			//	list: {
+			//		imgUrl: urlElems[i].firstChild.data,
+			//		imgCaption: captionElems[i].firstChild.data
+			//},
+			//};
+			let obj = {
+					imgUrl: urlElems[i].firstChild.data,
+					imgCaption: captionElems[i].firstChild.data
+			};
+			console.log("ny instans", obj);
+			this.list.push(obj);
 		};
 
+
+		//imgViewer.push(obj);
+
+		//let obj = new ImageViewer("imgViewer");
+		//obj.list.imgUrl.push(urlElems[i].firstChild.data);
+		//obj.list.imgCaption.push(captionElems[i].firstChild.data);
+		//obj.push(urlElems[i].firstChild.data,captionElems[i].firstChild.data);
+		//console.log(obj);
+
+
 		//imgViewer.list.imgCaption[i] = (captionElems[i].firstChild.data);
-		console.log(this);
-		this.imgIx = 0,//Nollställer bildindex
-			this.showImage; // Anropar funktion för att visa första bilden
-	};
+		//console.log("this-värdet här", this);
+		this.imgIx = 0;//Nollställer bildindex
+		this.showImage(); // Anropar funktion för att visa första bilden
+	}
+
 
 
 
@@ -65,6 +84,7 @@ class ImageViewer {
 		this.imgElem.src = this.list.imgUrl[this.imgIx];//Visar bilden
 
 		this.captionElem.innerHTML = (this.imgIx + 1) + ". " + this.list.imgCaption[this.imgIx]; //Visar bildtexten
+		console.log("this-värdet här", this.imgIx);
 	}; // Slut visa bilden
 
 	// Visa föregående bild
@@ -72,12 +92,14 @@ class ImageViewer {
 		if (this.imgIx > 0) this.imgIx--; //Om bildindexet är större än noll backa till föregående
 		else this.imgIx = this.list.imgUrl.length - 1; // Annars gå runt till sista bilden
 		this.showImage();
+
 	}; // Slut visa föregående bild
 
 	// Visa nästa bild
 	nextImage() {
 		if (this.imgIx < this.list.imgUrl.length - 1) this.imgIx++; //Om aktuell bild inte är den sista stega frammåt
 		else this.imgIx = 0; // Annars gå runt till första bilden
+		console.log("this-värdet här", this);
 		this.showImage();
 	}; // Slut visa nästa bild
 
@@ -110,11 +132,13 @@ function init() {
 			this.selectedIndex = 0;//Nollställning av index
 
 		}
+
 	);
+	console.log("imgViewer", imgViewer);
 	//Skapar "piltangenter"
 	document.querySelector("#prevBtn").addEventListener("click", function () { imgViewer.prevImage(); }); //Bakåtpil
 	document.querySelector("#nextBtn").addEventListener("click", function () { imgViewer.nextImage() });//Frammåtpil
-
+	//console.log(this);
 	//---Slut på initiering av händelsehanterare
 
 
