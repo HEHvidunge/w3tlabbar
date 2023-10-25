@@ -5,6 +5,10 @@ class ImageViewer {
 		this.imgElem = document.querySelector("#" + id + " img");//Skapar referns för bild
 		this.captionElem = document.querySelector("#" + id + " p"); //Skapar referns för bildtext
 		this.category = ""; //Inleder mot tom kategori
+
+
+
+
 		//Bildreferenser och bildtexter lagras här
 		this.list = {
 			img: ["img/blank.png"],//Inledande värde
@@ -56,7 +60,7 @@ class ImageViewer {
 		this.imgElem.src = this.list[ix].img;//Visar bilden
 
 		this.captionElem.innerHTML = (ix + 1) + ". " + this.list[ix].caption; //Visar bildtexten
-		
+
 	}; // Slut visa bilden
 
 	// Visa föregående bild
@@ -66,19 +70,18 @@ class ImageViewer {
 		if (this.imgIx > 0) this.imgIx--; //Om bildindexet är större än noll backa till föregående
 		else this.imgIx = this.list.length - 1; // Annars gå runt till sista bilden
 
-		
+
 		this.showImage();
 
 	}; // Slut visa föregående bild
 
 	// Visa nästa bild
 	nextImage() {
-		//let temp = e.currentTarget;
-		//let ix = this.imgIx;
+
 		if (this.imgIx < this.list.length - 1) this.imgIx++; //Om aktuell bild inte är den sista stega frammåt
 		else this.imgIx = 0; // Annars gå runt till första bilden
-		//this.imgIx = ix;
-	
+
+
 		this.showImage();
 	}; // Slut visa nästa bild
 
@@ -104,6 +107,7 @@ class ImageViewer {
 function init() {
 	imgViewer = new ImageViewer("imgViewer");//Initierar objektet
 
+	//
 	//Skapar händelsehanterar för menyn
 	document.querySelector("#categoryMenu").addEventListener("change",
 		function () {
@@ -114,6 +118,7 @@ function init() {
 	//Skapar händelehanterare för "piltangenterna"
 	document.querySelector("#prevBtn").addEventListener("click", function () { imgViewer.prevImage(); }); //Bakåtpil
 	document.querySelector("#nextBtn").addEventListener("click", function () { imgViewer.nextImage(); });//Frammåtpil
+	//
 
 	//---Slut på initiering av händelsehanterare
 
