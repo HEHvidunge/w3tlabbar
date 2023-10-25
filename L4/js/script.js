@@ -1,19 +1,19 @@
 // ----- Constructorfunktion för objektet ImageViewer-----
 class ImageViewer {
 	constructor(id) {
-		this.titleElem = document.querySelector("#" + id + " h3"),//Skapar referens för rubrik
-			this.imgElem = document.querySelector("#" + id + " img"),//Skapar referns för bild
-			this.captionElem = document.querySelector("#" + id + " p"),//Skapar referns för bildtext
-			this.category = ""; //Inleder mot tom kategori
+		this.titleElem = document.querySelector("#" + id + " h3");//Skapar referens för rubrik
+		this.imgElem = document.querySelector("#" + id + " img");//Skapar referns för bild
+		this.captionElem = document.querySelector("#" + id + " p"); //Skapar referns för bildtext
+		this.category = ""; //Inleder mot tom kategori
 		//Bildreferenser och bildtexter lagras här
 		this.list = {
-			imgUrl: "img/blank.png",//Inledande värde
-			imgCaption: ""//Inledande värde
+			img: ["img/blank.png"],//Inledande värde
+			caption: [""]//Inledande värde
 		};
-		this.imgIx = 0,
-			this.timer = null;
+		this.imgIx = 0;
+		this.timer = null;
 
-		console.log(this.list);
+		//console.log(this.list);
 	}
 
 	//------Metoder kopplade till objektet ImageViewer------
@@ -38,68 +38,47 @@ class ImageViewer {
 		//Inläsning av data som är gemensam för alla instanser av objektet
 		this.category = XMLcode.getElementsByTagName("category")[0].firstChild.data;//Hämtar kategorinamnet
 		this.titleElem.innerHTML = this.category;//Referens för visning av kategorinamnet
-		//console.log(this.titleElem.innerHTML);
 
-		//imgViewer.list.imgUrl = [];//Tömmer bildlistan
-		//imgViewer.list.imgCaption = [];//Tömmer bildtextlistan
+		this.list = [];//Arrayen för bildobjekten nollställs
+		//Data från XML-filerna läggs in i objektets array för bildobjekten
 		for (let i = 0; i < urlElems.length; i++) {
-
-			//let obj = {
-			//	list: {
-			//		imgUrl: urlElems[i].firstChild.data,
-			//		imgCaption: captionElems[i].firstChild.data
-			//},
-			//};
-			let obj = {
-					imgUrl: urlElems[i].firstChild.data,
-					imgCaption: captionElems[i].firstChild.data
-			};
-			console.log("ny instans", obj);
-			this.list.push(obj);
+			this.list.push({ img: urlElems[i].firstChild.data, caption: captionElems[i].firstChild.data }
+			);
 		};
 
-
-		//imgViewer.push(obj);
-
-		//let obj = new ImageViewer("imgViewer");
-		//obj.list.imgUrl.push(urlElems[i].firstChild.data);
-		//obj.list.imgCaption.push(captionElems[i].firstChild.data);
-		//obj.push(urlElems[i].firstChild.data,captionElems[i].firstChild.data);
-		//console.log(obj);
-
-
-		//imgViewer.list.imgCaption[i] = (captionElems[i].firstChild.data);
-		//console.log("this-värdet här", this);
-		this.imgIx = 0;//Nollställer bildindex
+		this.imgIx = 0;//Nollställer för aktuell bild
 		this.showImage(); // Anropar funktion för att visa första bilden
 	}
 
-
-
-
-
 	// Visa bilden med index imgIx
 	showImage() {
+		let ix = this.imgIx;
+		this.imgElem.src = this.list[ix].img;//Visar bilden
 
-		this.imgElem.src = this.list.imgUrl[this.imgIx];//Visar bilden
-
-		this.captionElem.innerHTML = (this.imgIx + 1) + ". " + this.list.imgCaption[this.imgIx]; //Visar bildtexten
-		console.log("this-värdet här", this.imgIx);
+		this.captionElem.innerHTML = (ix + 1) + ". " + this.list[ix].caption; //Visar bildtexten
+		
 	}; // Slut visa bilden
 
 	// Visa föregående bild
 	prevImage() {
+
+		let ix = this.imgIx;
 		if (this.imgIx > 0) this.imgIx--; //Om bildindexet är större än noll backa till föregående
-		else this.imgIx = this.list.imgUrl.length - 1; // Annars gå runt till sista bilden
+		else this.imgIx = this.list.length - 1; // Annars gå runt till sista bilden
+
+		
 		this.showImage();
 
 	}; // Slut visa föregående bild
 
 	// Visa nästa bild
 	nextImage() {
-		if (this.imgIx < this.list.imgUrl.length - 1) this.imgIx++; //Om aktuell bild inte är den sista stega frammåt
+		//let temp = e.currentTarget;
+		//let ix = this.imgIx;
+		if (this.imgIx < this.list.length - 1) this.imgIx++; //Om aktuell bild inte är den sista stega frammåt
 		else this.imgIx = 0; // Annars gå runt till första bilden
-		console.log("this-värdet här", this);
+		//this.imgIx = ix;
+	
 		this.showImage();
 	}; // Slut visa nästa bild
 
@@ -130,15 +109,12 @@ function init() {
 		function () {
 			imgViewer.requestImages("xml/images" + this.selectedIndex + ".xml");
 			this.selectedIndex = 0;//Nollställning av index
-
 		}
-
 	);
-	console.log("imgViewer", imgViewer);
-	//Skapar "piltangenter"
+	//Skapar händelehanterare för "piltangenterna"
 	document.querySelector("#prevBtn").addEventListener("click", function () { imgViewer.prevImage(); }); //Bakåtpil
-	document.querySelector("#nextBtn").addEventListener("click", function () { imgViewer.nextImage() });//Frammåtpil
-	//console.log(this);
+	document.querySelector("#nextBtn").addEventListener("click", function () { imgViewer.nextImage(); });//Frammåtpil
+
 	//---Slut på initiering av händelsehanterare
 
 
