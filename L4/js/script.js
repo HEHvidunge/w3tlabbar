@@ -55,9 +55,9 @@ class ImageViewer {
 	// Visa bilden med index imgIx
 	showImage() {
 		
-		this.imgElem.src = this.list[imgIx].img;//Visar bilden
+		this.imgElem.src = this.list[this.imgIx].img;//Visar bilden
 
-		this.captionElem.innerHTML = (imgIx + 1) + ". " + this.list[imgIx].caption; //Visar bildtexten
+		this.captionElem.innerHTML = (this.imgIx + 1) + ". " + this.list[this.imgIx].caption; //Visar bildtexten
 
 	}; // Slut visa bilden
 
