@@ -6,9 +6,6 @@ class ImageViewer {
 		this.captionElem = document.querySelector("#" + id + " p"); //Skapar referns för bildtext
 		this.category = ""; //Inleder mot tom kategori
 
-
-
-
 		//Bildreferenser och bildtexter lagras här
 		this.list = {
 			img: ["img/blank.png"],//Inledande värde
@@ -23,13 +20,14 @@ class ImageViewer {
 	//------Metoder kopplade till objektet ImageViewer------
 	// Ajax-anrop för att läsa in begärd fil
 	requestImages(file) {
-		//console.log(file);
+		
+		self=this;
 		let request = new XMLHttpRequest(); // Object för Ajax-anropet
 		request.open("GET", file, true);
 		request.send(null); // Skicka begäran till servern
 		request.onreadystatechange = function () { // Funktion för att avläsa status i kommunikationen
 			if (request.readyState == 4) // readyState 4 --> kommunikationen är klar
-				if (request.status == 200) imgViewer.getImages(request.responseXML); // status 200 (OK) --> filen fanns
+				if (request.status == 200) self.getImages(request.responseXML); // status 200 (OK) --> filen fanns
 				else window.alert("Den begärda resursen fanns inte.");
 		}
 	};
@@ -56,17 +54,16 @@ class ImageViewer {
 
 	// Visa bilden med index imgIx
 	showImage() {
-		let ix = this.imgIx;
-		this.imgElem.src = this.list[ix].img;//Visar bilden
+		
+		this.imgElem.src = this.list[imgIx].img;//Visar bilden
 
-		this.captionElem.innerHTML = (ix + 1) + ". " + this.list[ix].caption; //Visar bildtexten
+		this.captionElem.innerHTML = (imgIx + 1) + ". " + this.list[imgIx].caption; //Visar bildtexten
 
 	}; // Slut visa bilden
 
 	// Visa föregående bild
 	prevImage() {
-
-		let ix = this.imgIx;
+		
 		if (this.imgIx > 0) this.imgIx--; //Om bildindexet är större än noll backa till föregående
 		else this.imgIx = this.list.length - 1; // Annars gå runt till sista bilden
 
